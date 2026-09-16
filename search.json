@@ -1,0 +1,2689 @@
+[
+  {
+    "objectID": "web/resources.html",
+    "href": "web/resources.html",
+    "title": "AI-Agenter-E2026",
+    "section": "",
+    "text": "Docker file for n8n, Ollama, Qdrant and NEO4J."
+  },
+  {
+    "objectID": "web/resources.html#docker-file-for-n8n-only",
+    "href": "web/resources.html#docker-file-for-n8n-only",
+    "title": "AI-Agenter-E2026",
+    "section": "Docker file for n8n only",
+    "text": "Docker file for n8n only\nversion: '3.8'\n\nservices:\n  n8n:\n    image: n8nio/n8n:latest\n    container_name: n8n\n    restart: unless-stopped\n    ports:\n      - \"5678:5678\"\n    volumes:\n      - n8n_data:/home/node/.n8n\n\nvolumes:\n  n8n_data:\nTo use this Docker Compose file:\n\nSave the content: Copy the YAML content above and save it into a file named docker-compose.yml in a directory of your choice.\nOpen your terminal: Navigate to the directory where you saved docker-compose.yml.\nRun Docker Compose: Execute the command:\ndocker compose up -d\nAccess n8n: Once the container is running (it might take a moment to pull the image the first time), open your web browser and go to http://localhost:5678."
+  },
+  {
+    "objectID": "web/resources.html#all-4-services",
+    "href": "web/resources.html#all-4-services",
+    "title": "AI-Agenter-E2026",
+    "section": "All 4 services",
+    "text": "All 4 services\nservices: n8n: image: n8nio/n8n:latest container_name: n8n restart: unless-stopped ports: - “5678:5678” volumes: - n8n_data:/home/node/.n8n environment: - GENAI_MODELS_OLLAMA_BASE_URL=http://ollama:11434 depends_on: - ollama - qdrant - neo4j\nollama: image: ollama/ollama:latest container_name: ollama restart: unless-stopped ports: - “11434:11434” volumes: - ollama_data:/root/.ollama\nqdrant: image: qdrant/qdrant:latest container_name: qdrant restart: unless-stopped ports: - “6333:6333” - “6334:6334” volumes: - qdrant_data:/qdrant/storage environment: - QDRANT__SERVICE__API_KEY=VerySecretKey\nneo4j: image: neo4j:latest container_name: neo4j restart: unless-stopped ports: - “7474:7474” - “7687:7687” volumes: - neo4j_data:/data environment: - NEO4J_AUTH=neo4j/12344321 - NEO4J_PLUGINS=[“apoc”] - NEO4J_dbms_security_procedures_unrestricted=apoc.*\nvolumes: n8n_data: ollama_data: qdrant_data: neo4j_data:"
+  },
+  {
+    "objectID": "slides/week04-slides.html#agenda",
+    "href": "slides/week04-slides.html#agenda",
+    "title": "4. Large Language Models",
+    "section": "Agenda",
+    "text": "Agenda\n\nFollow up from last time…\nAssignment\nAIs history\nLarge Language Models",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#prompt-user-message",
+    "href": "slides/week04-slides.html#prompt-user-message",
+    "title": "4. Large Language Models",
+    "section": "Prompt (User Message)",
+    "text": "Prompt (User Message)\n\n\n\nThe prompt or the user message is the input to the AI agent\n\nThis is the request to the agent\n\nIt does not have to be a human\n\nIt can be other systems and even other agents",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#system-message",
+    "href": "slides/week04-slides.html#system-message",
+    "title": "4. Large Language Models",
+    "section": "System message",
+    "text": "System message\n\n\n\nSystem messages (also called System Prompts) define how the model should behave.\n\nThis is where you can get the agent to talk like a pirate – or something more useful",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#assignments",
+    "href": "slides/week04-slides.html#assignments",
+    "title": "4. Large Language Models",
+    "section": "Assignments",
+    "text": "Assignments\n\nFeedback\nPet projects?",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#turing-test",
+    "href": "slides/week04-slides.html#turing-test",
+    "title": "4. Large Language Models",
+    "section": "Turing test",
+    "text": "Turing test\n\n\n\nThe Turing Test is a test for a machine’s ability to exhibit human-like intelligence.\nProposed by Alan Turing in 1950\nIt involves a human interrogator having text-based conversations with both a human and a machine.\nIf the interrogator cannot reliably tell the machine from the human, the machine is considered to have passed the test.\nThe test is designed to assess whether a machine can “think” by successfully imitating human conversation (originally called the “Imitation game”)",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#perceptron-in-the-1950s",
+    "href": "slides/week04-slides.html#perceptron-in-the-1950s",
+    "title": "4. Large Language Models",
+    "section": "Perceptron in the 1950s",
+    "text": "Perceptron in the 1950s",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#try-it-out",
+    "href": "slides/week04-slides.html#try-it-out",
+    "title": "4. Large Language Models",
+    "section": "Try it out",
+    "text": "Try it out\nhttps://dnn.jakup.dk/",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#multi-layer",
+    "href": "slides/week04-slides.html#multi-layer",
+    "title": "4. Large Language Models",
+    "section": "Multi-layer",
+    "text": "Multi-layer\n\n\n\nMulti-layer perceptrons (MLPs) are necessary because single-layer perceptrons are limited to solving only linearly separable problems, such as classifying data that can be separated by a single straight line.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#new-set-of-problems-can-be-solved",
+    "href": "slides/week04-slides.html#new-set-of-problems-can-be-solved",
+    "title": "4. Large Language Models",
+    "section": "New set of problems can be solved",
+    "text": "New set of problems can be solved",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#we-add-hidden-layers",
+    "href": "slides/week04-slides.html#we-add-hidden-layers",
+    "title": "4. Large Language Models",
+    "section": "We add hidden layers",
+    "text": "We add hidden layers",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#back-propagation-1986",
+    "href": "slides/week04-slides.html#back-propagation-1986",
+    "title": "4. Large Language Models",
+    "section": "Back propagation (1986)",
+    "text": "Back propagation (1986)\n\n\n\nA computer can learn from its mistakes (training)\nBackward propagation of errors\nAn algorithm for supervised learning of artificial neural networks using gradient descent\nPopularised by Rumelhart, Hinton & Williams (1986)",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#how-to-train-a-neural-network",
+    "href": "slides/week04-slides.html#how-to-train-a-neural-network",
+    "title": "4. Large Language Models",
+    "section": "How to Train a Neural Network",
+    "text": "How to Train a Neural Network\n\n\n\n\nInitialize Weights: Start by assigning small, random values to all weights in the network.\nForward Propagation: Feed the network a known input to produce an output or a prediction.\nCalculate Loss: Compare the network’s output to the correct output to determine the error.\nBackpropagation & Weight Adjustment: Calculate how much each weight contributed to the error, and adjust the weights to reduce this error.\nIterate: Repeat this process many times, allowing the network to gradually improve its accuracy by continuously refining its weights.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#local-vs-global",
+    "href": "slides/week04-slides.html#local-vs-global",
+    "title": "4. Large Language Models",
+    "section": "Local vs global",
+    "text": "Local vs global",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#logic-gate-truth-tables",
+    "href": "slides/week04-slides.html#logic-gate-truth-tables",
+    "title": "4. Large Language Models",
+    "section": "Logic Gate Truth Tables",
+    "text": "Logic Gate Truth Tables\n\n\nAND\n\n\n\nA\nB\nOut\n\n\n\n\n0\n0\n0\n\n\n0\n1\n0\n\n\n1\n0\n0\n\n\n1\n1\n1\n\n\n\n\nOR\n\n\n\nA\nB\nOut\n\n\n\n\n0\n0\n0\n\n\n0\n1\n1\n\n\n1\n0\n1\n\n\n1\n1\n1\n\n\n\n\nXOR\n\n\n\nA\nB\nOut\n\n\n\n\n0\n0\n0\n\n\n0\n1\n1\n\n\n1\n0\n1\n\n\n1\n1\n0",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#perceptron-exercise",
+    "href": "slides/week04-slides.html#perceptron-exercise",
+    "title": "4. Large Language Models",
+    "section": "Perceptron exercise",
+    "text": "Perceptron exercise\n\nUse different layouts to solve OR and XOR\nSet up a dataset, train it and see how the weights evolve\nhttps://dnn.jakup.dk/",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#ibms-deep-blue",
+    "href": "slides/week04-slides.html#ibms-deep-blue",
+    "title": "4. Large Language Models",
+    "section": "1997 IBM’s Deep Blue",
+    "text": "1997 IBM’s Deep Blue\n\nGarry Kasparov lost in chess to IBM’s Deep Blue\nAI, but not neural networks\nA* and search trees used with advanced heuristics",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#a-algorithm",
+    "href": "slides/week04-slides.html#a-algorithm",
+    "title": "4. Large Language Models",
+    "section": "A* algorithm",
+    "text": "A* algorithm",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#deep-learning-2006",
+    "href": "slides/week04-slides.html#deep-learning-2006",
+    "title": "4. Large Language Models",
+    "section": "Deep learning (2006)",
+    "text": "Deep learning (2006)\n\n\n\nDeep learning is a specialized subfield of artificial intelligence (AI) and machine learning (ML)\nIt uses complex, multi-layered artificial neural networks to automatically learn intricate patterns from vast amounts of data, mimicking how the human brain processes information.\nThe “deep” in deep learning refers to the numerous hidden layers within the network—typically three or more, but often hundreds.\nInspired by how the brain works\n\nNeurons and synapses",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#image-net-2010",
+    "href": "slides/week04-slides.html#image-net-2010",
+    "title": "4. Large Language Models",
+    "section": "IMAGE-NET (2010)",
+    "text": "IMAGE-NET (2010)\n\nCompetition to recognize images\nMore than 14 million images were hand-annotated to indicate what objects are pictured",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#ibms-watson-ai-wins-in-jeopardy-2011",
+    "href": "slides/week04-slides.html#ibms-watson-ai-wins-in-jeopardy-2011",
+    "title": "4. Large Language Models",
+    "section": "IBM’s Watson AI wins in “Jeopardy!” (2011)",
+    "text": "IBM’s Watson AI wins in “Jeopardy!” (2011)\n\nThe computer “understands” human language",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#deep-neural-networks-2012",
+    "href": "slides/week04-slides.html#deep-neural-networks-2012",
+    "title": "4. Large Language Models",
+    "section": "Deep neural networks (2012)",
+    "text": "Deep neural networks (2012)\n\n\n\nPaper by Jeff Dean and Andrew Ng\nUnsupervised neural networks\n“We can recognize a cat”\nThe AlexNet\nThe “Big Bang” of AI\nNvidia GPUs are being used for AI",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#deepmind-owned-by-google",
+    "href": "slides/week04-slides.html#deepmind-owned-by-google",
+    "title": "4. Large Language Models",
+    "section": "DeepMind (owned by Google)",
+    "text": "DeepMind (owned by Google)\n\n\n\nWins in “GO” - thought this would have been impossible for decades to come\nA* like algorithm with neural network for pruning and assessments\nSee “AlphaGo” video (2016)\nLater on we get AlphaFold for medical work (https://www.youtube.com/watch?v=P_fHJIYENdI)",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#transformers-2017",
+    "href": "slides/week04-slides.html#transformers-2017",
+    "title": "4. Large Language Models",
+    "section": "Transformers (2017)",
+    "text": "Transformers (2017)\n\n\n\n2017 paper “Attention Is All You Need” by Google researchers\nGPT = Generative Pre-trained Transformer\nProblem: Previous models processed text sequentially, word by word, which made it challenging for them to maintain context over long sentences and limited their ability to be parallelized for faster training\nhttps://poloclub.github.io/transformer-explainer/",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#self-attention",
+    "href": "slides/week04-slides.html#self-attention",
+    "title": "4. Large Language Models",
+    "section": "Self-Attention",
+    "text": "Self-Attention\n\nSelf-attention allows a model to weigh the importance of different words in a sentence when processing a particular word\n\nFor example: “The robot picked up the red ball because it was the right color,”self-attention helps the model understand that “it” refers to the “ball” and not the “robot.”\n\nFor each word, the model can “look” at all other words in the input sequence and determine which ones are most relevant to understanding its meaning in that specific context\nThis ability to capture relationships between words, regardless of their distance from each other in the sentence, is a key advantage over sequential models",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#encoder-and-decoder",
+    "href": "slides/week04-slides.html#encoder-and-decoder",
+    "title": "4. Large Language Models",
+    "section": "Encoder and decoder",
+    "text": "Encoder and decoder\nEncoder (left): The encoder receives an input and builds a representation of it (its features). This means that the model is optimized to acquire understanding from the input.\nDecoder (right): The decoder uses the encoder’s representation (features) along with other inputs to generate a target sequence. This means that the model is optimized for generating outputs.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#try-it-out-1",
+    "href": "slides/week04-slides.html#try-it-out-1",
+    "title": "4. Large Language Models",
+    "section": "Try it out…",
+    "text": "Try it out…\nhttps://poloclub.github.io/transformer-explainer/",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#openai-gpt1-2018",
+    "href": "slides/week04-slides.html#openai-gpt1-2018",
+    "title": "4. Large Language Models",
+    "section": "OpenAI GPT1 (2018)",
+    "text": "OpenAI GPT1 (2018)\n\n\nOpenAI uses transformers to build LLMs (GPT1, 2,…)",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#chatgpt-late-2022",
+    "href": "slides/week04-slides.html#chatgpt-late-2022",
+    "title": "4. Large Language Models",
+    "section": "ChatGPT (late 2022)",
+    "text": "ChatGPT (late 2022)\n\n\n\nUser-friendly chatbot is introduced\nGenerative AI becomes huge “overnight”",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#neural-networks",
+    "href": "slides/week04-slides.html#neural-networks",
+    "title": "4. Large Language Models",
+    "section": "Neural networks",
+    "text": "Neural networks\n\n\n\nBillions of parameters\n\nInputs\nWeights\nEtc.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#llms-guess-the-next-word",
+    "href": "slides/week04-slides.html#llms-guess-the-next-word",
+    "title": "4. Large Language Models",
+    "section": "LLMs guess the next word",
+    "text": "LLMs guess the next word\n\n\n\nA LLM is trained to guess the next most likely word\nIt is making qualified “guesses”\nSometimes it guesses “wrong”",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#training-data",
+    "href": "slides/week04-slides.html#training-data",
+    "title": "4. Large Language Models",
+    "section": "Training data",
+    "text": "Training data\n\n\n\nText from the internet\nUses trillions of examples",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#training",
+    "href": "slides/week04-slides.html#training",
+    "title": "4. Large Language Models",
+    "section": "Training",
+    "text": "Training\n\n\n\nUse back propagation (and other techniques) to adjust weights\nTakes months to train the biggest models (cost +10 million dollars per model)",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#guesses-unseen-words-not-in-training-data",
+    "href": "slides/week04-slides.html#guesses-unseen-words-not-in-training-data",
+    "title": "4. Large Language Models",
+    "section": "Guesses unseen words not in training data",
+    "text": "Guesses unseen words not in training data\n\nLLMs find a lot of patterns in the texts and can guess words it has not seen before",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#chatbot-training",
+    "href": "slides/week04-slides.html#chatbot-training",
+    "title": "4. Large Language Models",
+    "section": "ChatBot training",
+    "text": "ChatBot training\n\n\n\nReinforcement learning with Human Feedback\nUse humans’ feedback to improve the model’s parameters",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#hardware",
+    "href": "slides/week04-slides.html#hardware",
+    "title": "4. Large Language Models",
+    "section": "Hardware",
+    "text": "Hardware\n\n\n\nRuns (best) on GPUs\nNvidia’s CUDA\nOne of history’s biggest infrastructure projects in the 500 billion dollar area",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#emergent-abilities",
+    "href": "slides/week04-slides.html#emergent-abilities",
+    "title": "4. Large Language Models",
+    "section": "Emergent Abilities",
+    "text": "Emergent Abilities\n\n\n\nCapabilities that are not explicitly programmed into the models\nBut spontaneously appear as the models are scaled up in size, data, and computational power\nSudden and unpredictable leap in performance on specific tasks\nExamples:\n\nComplex Reasoning and Arithmetic\nCode Generation\nAnswering Questions and Summarization\nChain-of-Thought Prompting",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#pre-training",
+    "href": "slides/week04-slides.html#pre-training",
+    "title": "4. Large Language Models",
+    "section": "Pre-training",
+    "text": "Pre-training\nTraining to create the original model – the model you download",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#fine-tuning",
+    "href": "slides/week04-slides.html#fine-tuning",
+    "title": "4. Large Language Models",
+    "section": "Fine-tuning",
+    "text": "Fine-tuning\n\n\n\nChange some layers in the LLM\nYou train e.g. the last 2-3 layers of the model with data from your specific use case\nFaster to re-train an existing model than starting from scratch\nCan make the model specialized for your use",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#tokenization-and-the-token-window",
+    "href": "slides/week04-slides.html#tokenization-and-the-token-window",
+    "title": "4. Large Language Models",
+    "section": "Tokenization and the Token Window",
+    "text": "Tokenization and the Token Window\n\nLLMs don’t use words but break down text into smaller units called tokens\nTokens are whole words or a part of a word\n\n“Amoral” might be 2 tokens “a” and “moral”\n\nThe context window is the maximum number of tokens an LLM can “remember” or consider at one time when generating a response\n\n“It is the input layer to the neural network”\nA 100K context window can approximately contain 75k words",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#thinking---from-simple-prediction-to-complex-reasoning",
+    "href": "slides/week04-slides.html#thinking---from-simple-prediction-to-complex-reasoning",
+    "title": "4. Large Language Models",
+    "section": "“Thinking” - From Simple Prediction to Complex Reasoning",
+    "text": "“Thinking” - From Simple Prediction to Complex Reasoning\n\nA technique where the model is prompted to “think step by step,” breaking down a complex problem into intermediate reasoning steps before arriving at a final answer.\nThis ability to follow a logical chain of thought is significantly more pronounced in larger models.\nThis is what we use for our AI Agents",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#llm-limitations",
+    "href": "slides/week04-slides.html#llm-limitations",
+    "title": "4. Large Language Models",
+    "section": "LLM limitations",
+    "text": "LLM limitations\n\nHallucinations: LLMs can generate plausible but incorrect or nonsensical information.\nBias: They can reflect and amplify biases present in their training data.\nLack of True Understanding: At their core, LLMs are probabilistic models predicting the next token; they do not possess true consciousness or understanding in the human sense.\nComputational Cost: Training and deploying large-scale LLMs requires significant computational resources.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#temperature",
+    "href": "slides/week04-slides.html#temperature",
+    "title": "4. Large Language Models",
+    "section": "Temperature",
+    "text": "Temperature\n\nTemperature is a key parameter that controls the randomness of an LLM’s output.\nIt’s a value, typically between 0 and 2, that you can set when you make a request to the model.\nThink of it as a dial for creativity.\nLow Temperature (e.g., 0.1 to 0.5): With a low temperature, the model becomes more deterministic and conservative.\nHigh Temperature (e.g., 0.8 to 1.5): A higher temperature increases the chances of the model selecting less likely tokens.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#more-temperature",
+    "href": "slides/week04-slides.html#more-temperature",
+    "title": "4. Large Language Models",
+    "section": "More temperature",
+    "text": "More temperature\n\nNot True Creativity: While a higher temperature can lead to more novel-sounding outputs, it’s not the same as human creativity. It’s simply increasing the mathematical randomness of the word selection. The model’s inherent creativity is more tied to its architecture and training data.\nRisk of Incoherence: Pushing the temperature too high can result in nonsensical or “hallucinated” outputs that don’t make sense.\nFinding the Balance: The right temperature setting depends entirely on the task at hand. For a reliable AI agent performing a predictable task, a low temperature is generally preferred. For an agent designed to brainstorm or explore possibilities, a higher temperature might be more appropriate.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#top-k-sampling",
+    "href": "slides/week04-slides.html#top-k-sampling",
+    "title": "4. Large Language Models",
+    "section": "Top-K Sampling",
+    "text": "Top-K Sampling\n\nDefinition: Filters the probability distribution to keep only the top k most likely tokens.\nProcess:\n\nSort all possible next words by their probability.\nKeep only the top k options (e.g., if k=40, only the 40 most likely words are considered).\nRedistribute the probability mass among these k tokens.\nRandomly sample the next word from this restricted set.\n\nImpact:\n\nPros: Very simple and prevents the model from picking completely nonsensical “long-tail” words.\nCons: It is not adaptive. If the model is very confident (one word is 99%), it still looks at the other 39. If the model is uncertain, it might cut off valid, high-quality choices.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#top-p-nucleus-sampling",
+    "href": "slides/week04-slides.html#top-p-nucleus-sampling",
+    "title": "4. Large Language Models",
+    "section": "Top-P (Nucleus) Sampling",
+    "text": "Top-P (Nucleus) Sampling\n\n\nDefinition: A dynamic approach that selects the smallest set of tokens whose cumulative probability exceeds a threshold p.\nProcess:\n\nSort all possible next words by probability.\nAdd words to a “nucleus” one by one until their combined probability reaches p (e.g., p=0.9 or 90%).\nThe number of words in the set grows or shrinks based on the model’s confidence.\nSample the next word only from this “nucleus.”\n\nImpact:\n\nPros: Adaptive. When the model is confident, the set is small (maybe 1 word); when it’s confused, the set is large.\nCons: Harder to predict exactly how many options the model will have at any given step.\n\nOften considered superior to Top-K for maintaining a natural and creative “flow” in conversation.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#øvelse",
+    "href": "slides/week04-slides.html#øvelse",
+    "title": "4. Large Language Models",
+    "section": "Øvelse",
+    "text": "Øvelse\n\nVi bruger LLMer til vores agenter\nHvilken betydning har LLMernes “sandsynligheds-element” for hvad vores agenter kan gøre og hvilke svar vores agenter kan give os?\nTag gerne jeres erfaringer med ChatBots med (ChatGPT, Claude, etc.)\nForbered et svar til resten af klassen\nTænk selv i 5 minutter\nDiskuter dine tanker med 1-2 andre personer (5 min)",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#overvej",
+    "href": "slides/week04-slides.html#overvej",
+    "title": "4. Large Language Models",
+    "section": "Overvej",
+    "text": "Overvej\n\nDeterministisk vs. Sandsynligheder\n\nForskellen på “at vide” og “at gætte”\n\nTræningsdata\nHvad ved LLMen?\n“Bias”?\nHvor eksekveres modellen?\nHvem får vores data? Er det ok?",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#assignment",
+    "href": "slides/week04-slides.html#assignment",
+    "title": "4. Large Language Models",
+    "section": "Assignment",
+    "text": "Assignment\n\nWrite max 1 page about:\n\nthe functionality of LLMs\nPros and cons with LLMs",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#prompt-engineering-1",
+    "href": "slides/week04-slides.html#prompt-engineering-1",
+    "title": "4. Large Language Models",
+    "section": "Prompt engineering",
+    "text": "Prompt engineering\nHow to instruct our LLMs and Agents – next time",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#prompting-ai-agents",
+    "href": "slides/week04-slides.html#prompting-ai-agents",
+    "title": "4. Large Language Models",
+    "section": "Prompting AI Agents",
+    "text": "Prompting AI Agents\n\nThere is no “single way” to do this\nThe LLMs are different\nSize/typography\nTraining\nThe tasks at hand are different",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#a-structure-for-ai-agent-prompts",
+    "href": "slides/week04-slides.html#a-structure-for-ai-agent-prompts",
+    "title": "4. Large Language Models",
+    "section": "A structure for AI Agent prompts",
+    "text": "A structure for AI Agent prompts\nRoles\nTasks\nRequirements\nInstructions",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#role",
+    "href": "slides/week04-slides.html#role",
+    "title": "4. Large Language Models",
+    "section": "Role",
+    "text": "Role\nDefines the persona the model should adopt. Influences tone, knowledge, and style.\n“Act as a senior software architect.”",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#task",
+    "href": "slides/week04-slides.html#task",
+    "title": "4. Large Language Models",
+    "section": "Task",
+    "text": "Task\nThe specific, clear objective for the model.\n“Outline a project plan for a new microservices application.”",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#requirements",
+    "href": "slides/week04-slides.html#requirements",
+    "title": "4. Large Language Models",
+    "section": "Requirements",
+    "text": "Requirements\nConditions that dictate the output’s format and constraints.\n“The outline should be a numbered list with a maximum of five top-level items.”",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#instructions",
+    "href": "slides/week04-slides.html#instructions",
+    "title": "4. Large Language Models",
+    "section": "Instructions",
+    "text": "Instructions\nGuidance on how to execute the task. Provides intermediate steps or examples.\n“For each microservice, provide a brief description and a list of its core dependencies.”",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#a-good-prompt",
+    "href": "slides/week04-slides.html#a-good-prompt",
+    "title": "4. Large Language Models",
+    "section": "A good prompt",
+    "text": "A good prompt",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#quantization",
+    "href": "slides/week04-slides.html#quantization",
+    "title": "4. Large Language Models",
+    "section": "Quantization",
+    "text": "Quantization\n\nLess precision of weights (prune the neural network)\n“Smaller model” that can fit in less RAM\nLess precision of the models\nDoes not necessarily degrade “performance” of the model significantly",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week04-slides.html#what-to-remember",
+    "href": "slides/week04-slides.html#what-to-remember",
+    "title": "4. Large Language Models",
+    "section": "What to Remember",
+    "text": "What to Remember\n\nLLMs are neural networks that predict the next token from patterns in huge datasets.\nBetter prompting gives better outputs: define role, task, requirements, and clear instructions.\nOutputs are probabilistic, not facts: verify important answers.\nTemperature and sampling settings control creativity vs. reliability.\nModel quality, context window, and hardware constraints shape what your agent can do.",
+    "crumbs": [
+      "Slides",
+      "4. Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#agenda",
+    "href": "slides/week02-slides.html#agenda",
+    "title": "2. Introduction to n8n",
+    "section": "Agenda",
+    "text": "Agenda\n\nOpfølgning fra sidst​\nDemo/gennemgang af n8n​ + Ollama\nØvelse: Workflow til backup af workflow",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#spørgsmål-til-kurset",
+    "href": "slides/week02-slides.html#spørgsmål-til-kurset",
+    "title": "2. Introduction to n8n",
+    "section": "Spørgsmål til kurset?",
+    "text": "Spørgsmål til kurset?\n\nplan\nprojekter\nlitteratur\neksamen\nandet?",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#from-last-time",
+    "href": "slides/week02-slides.html#from-last-time",
+    "title": "2. Introduction to n8n",
+    "section": "From last time…",
+    "text": "From last time…\n\nn8n installed?\nOllama?",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#large-language-models",
+    "href": "slides/week02-slides.html#large-language-models",
+    "title": "2. Introduction to n8n",
+    "section": "Large Language Models",
+    "text": "Large Language Models\n\n\n\nWhat are are LLMs?",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#ai-agents",
+    "href": "slides/week02-slides.html#ai-agents",
+    "title": "2. Introduction to n8n",
+    "section": "AI Agents",
+    "text": "AI Agents\n\n\n\nReasoning: Planning steps to a goal.\nMemory: Remembering past context.\nTools: Interacting with APIs/Databases.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#llm-vs.-ai-agent",
+    "href": "slides/week02-slides.html#llm-vs.-ai-agent",
+    "title": "2. Introduction to n8n",
+    "section": "LLM vs. AI Agent",
+    "text": "LLM vs. AI Agent\n\n\n\n\n\n\n\n\nFeature\nLLM (The Brain)\nAI Agent (The Worker)\n\n\n\n\nCore Capability\nText generation & knowledge\nGoal-oriented task completion\n\n\nDecision-Making\nNone (predicts next word)\nYes (chooses what to do next)\n\n\nTool Use\nNo (Static)\nYes (Uses APIs, Web, n8n)\n\n\nWorkflow\nSingle-step (Prompt -&gt; Result)\nMulti-step (Loop until finished)\n\n\nScope\nGenerates language\nPerforms real-world actions\n\n\nExample\nWriting a poem\nResearching a lead and sending an email",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#the-recipe-analogy",
+    "href": "slides/week02-slides.html#the-recipe-analogy",
+    "title": "2. Introduction to n8n",
+    "section": "The “Recipe” Analogy",
+    "text": "The “Recipe” Analogy\nA Workflow must be:\n\nExplicit: No guessing. Every step is defined.\nRepeatable: If you follow the recipe exactly, you get the same meal every time.\nAutomatable: Once the recipe is clear, a “robot chef” (n8n) can do the cooking for you.\nProgramming: Think of it as traditional programming (vs. generative AI)",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#deterministic-vs.-agentic",
+    "href": "slides/week02-slides.html#deterministic-vs.-agentic",
+    "title": "2. Introduction to n8n",
+    "section": "Deterministic vs. Agentic",
+    "text": "Deterministic vs. Agentic\n\n\nDeterministic\nThe Traditional Way\n\nRules-based: “If This, Then That.”\nFixed Paths: Every step is pre-defined.\nPredictable: Given the same input, you always get the same output.\nAnalogy: A train on tracks.\n\n\nAgentic\nThe AI-Powered Way\n\nGoal-based: “Find the answer to X.”\nDynamic Paths: The AI decides which tools to use in real-time.\nFlexible: Can handle unexpected data or “fuzzy” logic.\nAnalogy: A taxi driver.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#n8n---background",
+    "href": "slides/week02-slides.html#n8n---background",
+    "title": "2. Introduction to n8n",
+    "section": "n8n - background",
+    "text": "n8n - background\n\n\nn8n is an open-source, node-based workflow automation tool that enables users to connect various apps and services to automate tasks without extensive coding (No-code/low-code)\n\nAutomates complex workflows by connecting APIs, databases, and cloud services.\nOffers a visual, drag-and-drop interface to build workflows.\nSupports custom code with JavaScript (and Python) for advanced logic.\nIntegrates with hundreds of applications out-of-the-box.\nUseful for automating repetitive tasks, data synchronization, alerts, and more.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#alternatives-to-n8n",
+    "href": "slides/week02-slides.html#alternatives-to-n8n",
+    "title": "2. Introduction to n8n",
+    "section": "Alternatives to n8n",
+    "text": "Alternatives to n8n\n\nZapier\nMake.com\nactivepieces.com\nMicrosoft Power Automate\n…",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#self-hosted-vs.-cloud",
+    "href": "slides/week02-slides.html#self-hosted-vs.-cloud",
+    "title": "2. Introduction to n8n",
+    "section": "Self-hosted vs. cloud",
+    "text": "Self-hosted vs. cloud\n\n\n\nn8n is available as both self-hosted and cloud versions.\nWe are using the self-hosted version.\n\nCost: “Free” (Community edition).\n\nUpdates are released weekly – you are not expected to update every week.\nLLMs (Large Language Models) are accessed via:\n\nOllama (Local/Private).\nAPIs for ChatGPT, Gemini, etc. (May incur usage costs).",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#n8n---cloud-vs.-self-hosted",
+    "href": "slides/week02-slides.html#n8n---cloud-vs.-self-hosted",
+    "title": "2. Introduction to n8n",
+    "section": "n8n - Cloud vs. Self-Hosted",
+    "text": "n8n - Cloud vs. Self-Hosted\n\n\n\nFeature\nn8n Cloud\nn8n Self-Hosted\n\n\n\n\nUpdates\nAutomatic\nManual\n\n\nCost\nMonthly Fee\nFree / VPS Cost\n\n\nPrivacy\nThird-party\nFull Control\n\n\nSetup\nZero Effort\nTechnical\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nOur Choice: We use Self-Hosted to maintain control over our data and avoid execution limits. Cost: “Free” (Community edition and non-commercial).",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#n8n-resources",
+    "href": "slides/week02-slides.html#n8n-resources",
+    "title": "2. Introduction to n8n",
+    "section": "n8n resources",
+    "text": "n8n resources\n\nIntro video og kursus fra n8n-hjemmesiden (se ItsLearning )\nn8n  dokumentation\nEt hav af YouTube videoer\nReddit subs\nDiscord “n8n”\nAI (can be severely outdated)",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#the-n8n-interface",
+    "href": "slides/week02-slides.html#the-n8n-interface",
+    "title": "2. Introduction to n8n",
+    "section": "The n8n Interface",
+    "text": "The n8n Interface\n\n\nThe n8n dashboard is designed to be intuitive and visual.\n\nWorkflow Canvas: The main area where you build. It is an infinite digital whiteboard for your logic.\nNodes Panel: Located on the right (opened via the “+” button). This is your library of 400+ integrations and core tools.\nSidebar: Your command center for navigating between your workflow list, credentials, and execution history.\nSettings: Accessible via the gear icon in the sidebar for environment variables and owner settings.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#core-pillars-workflows-nodes",
+    "href": "slides/week02-slides.html#core-pillars-workflows-nodes",
+    "title": "2. Introduction to n8n",
+    "section": "Core Pillars: Workflows & Nodes",
+    "text": "Core Pillars: Workflows & Nodes\n\n\nTo master n8n, you must understand these three core concepts:\n\nWorkflows: A sequence of nodes connected together. A workflow always starts with a Trigger (e.g., a schedule, a webhook, or a manual “chat” prompt).\nNodes: The building blocks. Each node performs one specific action (e.g., “Send an Email,” “Ask ChatGPT,” or “Update Google Sheet”).\nParameters: The configuration inside a node (e.g., which email address to send to).",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#json-vs.-binary-data",
+    "href": "slides/week02-slides.html#json-vs.-binary-data",
+    "title": "2. Introduction to n8n",
+    "section": "JSON vs. Binary Data",
+    "text": "JSON vs. Binary Data\nI n8n arbejder vi primært med to datatyper:\n\nJSON (Struktureret data):\n\nTekst, tal, lister og objekter.\nDet du ser i tabeller og “Schema”-visning.\nBruges til logik, filtre og API-kald.\n\nBinary (Filer):\n\nBilleder, PDF’er, Excel-filer, lyd.\nKan ikke læses direkte som tekst af n8n’s standard-logik.\nKræver specifikke nodes (f.eks. “Extract from File”) for at blive transformeret til JSON.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#credentials-executions",
+    "href": "slides/week02-slides.html#credentials-executions",
+    "title": "2. Introduction to n8n",
+    "section": "Credentials & Executions",
+    "text": "Credentials & Executions\n\n\nCredentials\n\nThis is where you securely store API keys and logins (e.g., OpenAI API Key).\nSecurity: Credentials are encrypted and are separate from the workflow itself, allowing you to share workflows without sharing your keys.\n\nExecutions\n\nThe “Log Book” of your automation.\nShows exactly what data passed through every node.\nEssential for debugging: if a workflow fails, you can see exactly where and why.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#navigation-tips-for-beginners",
+    "href": "slides/week02-slides.html#navigation-tips-for-beginners",
+    "title": "2. Introduction to n8n",
+    "section": "Navigation Tips for Beginners",
+    "text": "Navigation Tips for Beginners\n\n\n\nRight-Click & Drag: Move around the canvas quickly.\nMouse Wheel: Zoom in and out.\nCMD/CTRL + C / V: You can copy-paste nodes. Interestingly, you can paste n8n nodes as JSON text into Slack/Teams/Email, and others can paste them back into their canvas!\nSearch (/): Use the search bar in the Nodes panel to find integrations quickly.\nExecute Workflow: Use the big orange button at the bottom to test your logic in real-time.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#node-types-categories",
+    "href": "slides/week02-slides.html#node-types-categories",
+    "title": "2. Introduction to n8n",
+    "section": "Node Types & Categories",
+    "text": "Node Types & Categories\n\n\n⚡ The Trigger (How it starts)\nTriggers: Every workflow starts here.\n\nSchedule (every hour)\nWebhook (sent from another app)\nApp Event (e.g., “New Row in Google Sheets”).",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#node-types-categories-1",
+    "href": "slides/week02-slides.html#node-types-categories-1",
+    "title": "2. Introduction to n8n",
+    "section": "Node Types & Categories",
+    "text": "Node Types & Categories\n\n\n🛠️ The Building Blocks\n\nAction in an app: The “Hands.” Connect to 400+ apps like Slack, Google Sheets, or Notion to send or retrieve data.\nData Transformation: The “Filter.” Change data formats, rename fields, or filter out specific information.\nFlow: The “Logic.” Create branches (If/Else), merge data streams, or loop through lists of items.\nCore: The “Power Tools.” Write custom JavaScript/Python, make raw HTTP requests, or use Webhooks.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#node-types-categories-2",
+    "href": "slides/week02-slides.html#node-types-categories-2",
+    "title": "2. Introduction to n8n",
+    "section": "Node Types & Categories",
+    "text": "Node Types & Categories\n\n\n🛠️ The Building Blocks\n\nAI: The “Brain.” Build autonomous agents, use chains, or search through your documents using vector stores.\nHuman in the Loop: The “Pause Button.” Stop the workflow and wait for a human to click “Approve” or enter data before continuing.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#demo-time",
+    "href": "slides/week02-slides.html#demo-time",
+    "title": "2. Introduction to n8n",
+    "section": "Demo Time! 🚀",
+    "text": "Demo Time! 🚀\n\nConnecting to an LLM (AI Agent).\nCreating a simple trigger.\nInspecting the “JSON” data output.\nSaving our first Execution.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#section-1",
+    "href": "slides/week02-slides.html#section-1",
+    "title": "2. Introduction to n8n",
+    "section": "",
+    "text": "dark or light mode?",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#n8n-demo---emner",
+    "href": "slides/week02-slides.html#n8n-demo---emner",
+    "title": "2. Introduction to n8n",
+    "section": "n8n demo - emner",
+    "text": "n8n demo - emner\n\nOverblik over UI - canvas, nodes panel, settings\nDashboard overview: Nodes panel, Workflow, canvas, Sidebar\nWhere to find integrations and settings\nNavigation tips for first-time users\nWorkflows, Credentials, Executions",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#create-a-simple-workflow-demo",
+    "href": "slides/week02-slides.html#create-a-simple-workflow-demo",
+    "title": "2. Introduction to n8n",
+    "section": "Create a simple workflow… (demo)",
+    "text": "Create a simple workflow… (demo)\nStep-by-step: Create a workflow from scratch\n\nAdd a trigger (e.g., webhook)\nConnect to a simple action (e.g., send an email or Slack message)\nRun and see results live",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#saving-testing-managing-workflows",
+    "href": "slides/week02-slides.html#saving-testing-managing-workflows",
+    "title": "2. Introduction to n8n",
+    "section": "Saving, Testing & Managing Workflows",
+    "text": "Saving, Testing & Managing Workflows\n\nHow to name, save, and activate a workflow\nTesting your workflow and reviewing run history\nTips for troubleshooting and managing runs",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#opret-og-kør-et-workflow-hello-world",
+    "href": "slides/week02-slides.html#opret-og-kør-et-workflow-hello-world",
+    "title": "2. Introduction to n8n",
+    "section": "Opret og kør et workflow “Hello world”!",
+    "text": "Opret og kør et workflow “Hello world”!\n\nOpret trigger\nSæt en variabel i triggeren\nBrug en set node til at lave en variabel\nBrug:\n\nNodes: triggers, actions, and logic nodes\nConnections and data flow\nExecutions and workflow states\nData structure and JSON basics\nError handling fundamentals",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#key-nodes-connecting-steps",
+    "href": "slides/week02-slides.html#key-nodes-connecting-steps",
+    "title": "2. Introduction to n8n",
+    "section": "Key Nodes & Connecting Steps",
+    "text": "Key Nodes & Connecting Steps\n\nCommon nodes: Trigger, HTTP Request, Email, Functions\nConnecting nodes and passing data\nExample: Fetching data from an API and sending a message",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#credentials-1",
+    "href": "slides/week02-slides.html#credentials-1",
+    "title": "2. Introduction to n8n",
+    "section": "Credentials",
+    "text": "Credentials\n\n\nOpsætning af credentials for at kunne integrere med andre systemer\nDette kan tage lang tid og være frustrerende",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#executions-1",
+    "href": "slides/week02-slides.html#executions-1",
+    "title": "2. Introduction to n8n",
+    "section": "Executions",
+    "text": "Executions\n\n\nHer kan du finde alle de workflows, som er kørt på din installation\nBruges specielt til produktion",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#evaluations---opsætning-af-automatisk-test",
+    "href": "slides/week02-slides.html#evaluations---opsætning-af-automatisk-test",
+    "title": "2. Introduction to n8n",
+    "section": "Evaluations - opsætning af automatisk test",
+    "text": "Evaluations - opsætning af automatisk test\n\n\nTrigger \n\nAction \n\nOutput Data \n\n\nhttps://www.youtube.com/watch?v=5LlF196PKaE\nTest driven development\n“Prompts are broken without evaluations”\nWe cannot reason with LLMs ( blackbox - kode er white box -&gt; vi kan se det hele)",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#brug-af-llmer-til-at-debugning",
+    "href": "slides/week02-slides.html#brug-af-llmer-til-at-debugning",
+    "title": "2. Introduction to n8n",
+    "section": "Brug af LLMer til at debugning",
+    "text": "Brug af LLMer til at debugning\n\nKopier Json workflow til LLMen\nMarker den del af workflowet du vil have LLMen til at forholde sig til\nCopy/paste den ind i chatbotten\nPrompt LLMen\nCopy/paste den ind i chatbotten\nSkriv hvad du vil have den til\nGiv den fejlbeskeder, screen dumps, etc.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#installer-ollama",
+    "href": "slides/week02-slides.html#installer-ollama",
+    "title": "2. Introduction to n8n",
+    "section": "Installer Ollama",
+    "text": "Installer Ollama\n\nInstallation:\n\nHent og installer fra ollama.com.\nKører som en baggrundstjeneste (tjek dit “system tray” ikon).\n\nDownload din første model:\n\nÅbn din terminal (CMD eller PowerShell).\nKør: ollama run llama3.2\nFor mindre maskiner: ollama run phi3 eller ollama run tinydolphin.\n\nTest i terminalen:\n\nChat direkte i terminalen for at bekræfte, at det virker.\nSkriv /bye for at afslutte.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#forbind-n8n-til-ollama",
+    "href": "slides/week02-slides.html#forbind-n8n-til-ollama",
+    "title": "2. Introduction to n8n",
+    "section": "Forbind n8n til Ollama",
+    "text": "Forbind n8n til Ollama\nNår du konfigurerer din Ollama Chat Model credential i n8n:\n\nBase URL (Hvis n8n kører som Desktop App):\n\nhttp://localhost:11434\n\nBase URL (Hvis n8n kører i Docker):\n\nhttp://host.docker.internal:11434\n\nModel Name:\n\nSkriv det præcise navn (f.eks. llama3.2), eller vælg fra listen hvis forbindelsen er aktiv.",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#test-forbindelsen",
+    "href": "slides/week02-slides.html#test-forbindelsen",
+    "title": "2. Introduction to n8n",
+    "section": "✅ Test forbindelsen",
+    "text": "✅ Test forbindelsen\n\nBrowser tjek:\n\nGå til http://localhost:11434 i din browser.\nDu skal se teksten: “Ollama is running”.\n\nn8n tjek:\n\nOpret en “AI Agent” node.\nTilføj “Chat Model” -&gt; “Ollama Chat Model”.\nKlik på rullemenuen under “Model”. Hvis dine downloadede modeller dukker op, virker det!",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#øvelse---lav-et-workflow-fra-bunden",
+    "href": "slides/week02-slides.html#øvelse---lav-et-workflow-fra-bunden",
+    "title": "2. Introduction to n8n",
+    "section": "Øvelse - lav et workflow fra bunden",
+    "text": "Øvelse - lav et workflow fra bunden\n\nEksperimenter med en “basic” trigger og aktion node\nTænk over eksempler : automatisering af “reminders”, daglige opsummeringer , notifikationer , etc.\nBasic: Webhook → Process Data → Send Email\nIntermediate: Google Sheets → Data Transformation → Email-Notification\nAdvanced: Multi-step workflow with conditional branching – keep expanding the complexity",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#backup-af-workflows",
+    "href": "slides/week02-slides.html#backup-af-workflows",
+    "title": "2. Introduction to n8n",
+    "section": "Backup af workflows",
+    "text": "Backup af workflows\n\nEt godt praktisk eksempel , som I kan have gavn af på kurset\nStart med en triggers – manuel , scheduled\nOpret n8n credentials\nEasier:\n\nVælg  backup af et workflow\nSend json til dig selv via mail, chat eller andet\n\nMedium\n\nBackup af alle workflow (loop dem)\nNotifikation om backup er sket (email, chat, etc.)\n\nHarder\n\nKun Backup af  workflows som er ændrede\nBackup til GitHub",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#aflevering",
+    "href": "slides/week02-slides.html#aflevering",
+    "title": "2. Introduction to n8n",
+    "section": "Aflevering",
+    "text": "Aflevering\n\nAflever en screenshot af dit workflow på ItsLearning",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "slides/week02-slides.html#næste-gang",
+    "href": "slides/week02-slides.html#næste-gang",
+    "title": "2. Introduction to n8n",
+    "section": "Næste gang…",
+    "text": "Næste gang…\n\nIntroduktion til agenter\nKig på de to kurser",
+    "crumbs": [
+      "Slides",
+      "2. Introduction to n8n"
+    ]
+  },
+  {
+    "objectID": "modules/week05-module.html",
+    "href": "modules/week05-module.html",
+    "title": "Week 5: Prompt enginnering",
+    "section": "",
+    "text": "What is prompt engineering?\nHow do we make prompts for our agents",
+    "crumbs": [
+      "Modules",
+      "Week 5: Prompt enginnering"
+    ]
+  },
+  {
+    "objectID": "modules/week05-module.html#agenda",
+    "href": "modules/week05-module.html#agenda",
+    "title": "Week 5: Prompt enginnering",
+    "section": "",
+    "text": "What is prompt engineering?\nHow do we make prompts for our agents",
+    "crumbs": [
+      "Modules",
+      "Week 5: Prompt enginnering"
+    ]
+  },
+  {
+    "objectID": "modules/week05-module.html#objectives",
+    "href": "modules/week05-module.html#objectives",
+    "title": "Week 5: Prompt enginnering",
+    "section": "Objectives",
+    "text": "Objectives\n\nForstå hvad prompt engineering er som disciplin\nForstå hvad de forskellige prompt teknikker er\nForstå hvad en god prompt er\nForstå processen omkring prompt engineering og hvordan den er i forhold til almindelig systemudvikling",
+    "crumbs": [
+      "Modules",
+      "Week 5: Prompt enginnering"
+    ]
+  },
+  {
+    "objectID": "modules/week05-module.html#assignments",
+    "href": "modules/week05-module.html#assignments",
+    "title": "Week 5: Prompt enginnering",
+    "section": "Assignments",
+    "text": "Assignments\n\nSee slides",
+    "crumbs": [
+      "Modules",
+      "Week 5: Prompt enginnering"
+    ]
+  },
+  {
+    "objectID": "modules/week05-module.html#literature",
+    "href": "modules/week05-module.html#literature",
+    "title": "Week 5: Prompt enginnering",
+    "section": "Literature",
+    "text": "Literature\n“The structure of a good prompt” – overblik over strukturen af prompting “Advanced Prompt Engineering Techniques:..” – overblik over de forskellige prompting teknikker “Prompt Engineering: Pitfalls to Avoid and Best Practices to Embrace” – best practive – does and don’ts “https://www.youtube.com/watch?v=bwrAsnU2P88 – video om prompt engineering af n8n agenter Teksterne om chain of thoughts and tree of thoughts er mest til baggrund\nhttps://www.reddit.com/r/PromptEngineering/comments/120fyp1/useful_links_for_getting_started_with_prompt/ https://ucddublin.pressbooks.pub/StudentResourcev1_od/chapter/the-structure-of-a-good-prompt/ https://www.patronus.ai/llm-testing/advanced-prompt-engineering-techniques https://medium.com/@v4sooraj/prompt-engineering-pitfalls-to-avoid-and-best-practices-to-embrace-096ad737c9d0 https://www.youtube.com/watch?v=bwrAsnU2P88 https://www.prompthub.us/blog/how-tree-of-thoughts-prompting-works#:~:text=Tree%20of%20Thought%20(ToT)%20prompting,multiple%20reasoning%20paths%20in%20parallel. https://www.ibm.com/think/topics/chain-of-thoughts https://www.splunk.com/en_us/blog/learn/chain-of-thought-cot-prompting.html",
+    "crumbs": [
+      "Modules",
+      "Week 5: Prompt enginnering"
+    ]
+  },
+  {
+    "objectID": "modules/week03-module.html",
+    "href": "modules/week03-module.html",
+    "title": "Week 3: AI Agents",
+    "section": "",
+    "text": "What is an AI agent, and how is it different from a single LLM call?\nThe agent loop: observe, decide, act, inspect, repeat\nTools, state, memory and stopping conditions\nMulti-agent systems: orchestrators and specialist agents\nWhen not to use an agent\nHuman-in-the-loop checkpoints\nFailure modes, retry limits and runaway agents\nBuilding agents in n8n",
+    "crumbs": [
+      "Modules",
+      "Week 3: AI Agents"
+    ]
+  },
+  {
+    "objectID": "modules/week03-module.html#agenda",
+    "href": "modules/week03-module.html#agenda",
+    "title": "Week 3: AI Agents",
+    "section": "",
+    "text": "What is an AI agent, and how is it different from a single LLM call?\nThe agent loop: observe, decide, act, inspect, repeat\nTools, state, memory and stopping conditions\nMulti-agent systems: orchestrators and specialist agents\nWhen not to use an agent\nHuman-in-the-loop checkpoints\nFailure modes, retry limits and runaway agents\nBuilding agents in n8n",
+    "crumbs": [
+      "Modules",
+      "Week 3: AI Agents"
+    ]
+  },
+  {
+    "objectID": "modules/week03-module.html#objectives",
+    "href": "modules/week03-module.html#objectives",
+    "title": "Week 3: AI Agents",
+    "section": "Objectives",
+    "text": "Objectives\n\nUnderstand when to use an agent and when a plain workflow or a single LLM call is the better answer\nUnderstand the agent loop and what each step actually does\nKnow what a tool is, and what happens when an agent chooses one\nRecognise simple multi-agent patterns such as sequential agents, parallel agents and handoffs\nBe able to build a working agent in n8n and give it a tool\nRecognise the common failure modes and know how to stop an agent safely",
+    "crumbs": [
+      "Modules",
+      "Week 3: AI Agents"
+    ]
+  },
+  {
+    "objectID": "modules/week03-module.html#a-note-on-this-week",
+    "href": "modules/week03-module.html#a-note-on-this-week",
+    "title": "Week 3: AI Agents",
+    "section": "A note on this week",
+    "text": "A note on this week\nWe build agents before we cover how language models work. That is on purpose. You will get an agent running, watch it do something odd, and then in week 4 we explain why it behaved that way.\nSo some things get hand-waved today - tool calling and context windows in particular. We come back to them next week.",
+    "crumbs": [
+      "Modules",
+      "Week 3: AI Agents"
+    ]
+  },
+  {
+    "objectID": "modules/week03-module.html#assignment",
+    "href": "modules/week03-module.html#assignment",
+    "title": "Week 3: AI Agents",
+    "section": "Assignment",
+    "text": "Assignment\nHanded out in class.",
+    "crumbs": [
+      "Modules",
+      "Week 3: AI Agents"
+    ]
+  },
+  {
+    "objectID": "modules/week03-module.html#literature",
+    "href": "modules/week03-module.html#literature",
+    "title": "Week 3: AI Agents",
+    "section": "Literature",
+    "text": "Literature\nStart here\n\nBuilding effective agents - the clearest short piece on the difference between a workflow and an agent, and on when you should not reach for an agent. We return to its patterns in week 12\nn8n: AI agent tutorial - hands-on, and what you need for the assignment\n\nGo deeper\n\nHugging Face Agents Course, unit 1 - free and structured; the Thought-Action-Observation cycle is the agent loop from the agenda, written out step by step\nA practical guide to building agents (PDF) - good on guardrails and human-in-the-loop, which is where most real systems succeed or fail\nEffective context engineering for AI agents\n\nhow to select, structure and manage the information an agent sees\n\nHarness engineering: leveraging Codex in an agent-first world\n\nan example of designing the surrounding system that makes agents useful and reliable\n\nAgentic AI: a framework for planning and execution - LinkedIn Learning, if you prefer video\nn8n advanced AI documentation - reference while you build",
+    "crumbs": [
+      "Modules",
+      "Week 3: AI Agents"
+    ]
+  },
+  {
+    "objectID": "modules/week01-module.html",
+    "href": "modules/week01-module.html",
+    "title": "Week 1: Introduction and setup",
+    "section": "",
+    "text": "Course introduction - structure, the two projects, and the exam\nAutomation, LLM applications, workflows and agents - what is the difference?\nExamples of agents in IT, administration, customer service and software development\nResponsible use and the limits of autonomous systems\nSetup: Ollama - a language model running locally on your own machine\nSetup: n8n - the workflow platform we use all semester\nA first look at both, so everything is running before week 2",
+    "crumbs": [
+      "Modules",
+      "Week 1: Introduction and setup"
+    ]
+  },
+  {
+    "objectID": "modules/week01-module.html#agenda",
+    "href": "modules/week01-module.html#agenda",
+    "title": "Week 1: Introduction and setup",
+    "section": "",
+    "text": "Course introduction - structure, the two projects, and the exam\nAutomation, LLM applications, workflows and agents - what is the difference?\nExamples of agents in IT, administration, customer service and software development\nResponsible use and the limits of autonomous systems\nSetup: Ollama - a language model running locally on your own machine\nSetup: n8n - the workflow platform we use all semester\nA first look at both, so everything is running before week 2",
+    "crumbs": [
+      "Modules",
+      "Week 1: Introduction and setup"
+    ]
+  },
+  {
+    "objectID": "modules/week01-module.html#objectives",
+    "href": "modules/week01-module.html#objectives",
+    "title": "Week 1: Introduction and setup",
+    "section": "Objectives",
+    "text": "Objectives\n\nUnderstand the course structure and what is expected in the two projects\nBe able to tell deterministic automation, LLM-assisted work and agentic work apart\nHave Ollama installed and answering prompts locally\nHave n8n running and be able to open the editor\nKnow which AI assistant you will use for the rest of the course",
+    "crumbs": [
+      "Modules",
+      "Week 1: Introduction and setup"
+    ]
+  },
+  {
+    "objectID": "modules/week01-module.html#your-own-ai-assistant",
+    "href": "modules/week01-module.html#your-own-ai-assistant",
+    "title": "Week 1: Introduction and setup",
+    "section": "Your own AI assistant",
+    "text": "Your own AI assistant\nYou will benefit from having access to one AI assistant of your own choice - Claude, ChatGPT, Gemini, Grok or another. You do not need more than one, and no assignment in this course depends on a particular vendor.\nOllama is the safety net. It is free, runs locally, needs no API key, and any exercise can fall back to it - so nobody is blocked by which subscription they happen to have. That is why we install it on day one.",
+    "crumbs": [
+      "Modules",
+      "Week 1: Introduction and setup"
+    ]
+  },
+  {
+    "objectID": "modules/week01-module.html#assignment",
+    "href": "modules/week01-module.html#assignment",
+    "title": "Week 1: Introduction and setup",
+    "section": "Assignment",
+    "text": "Assignment\n\nWeek 1 exercises - Ollama, n8n and your first workflows",
+    "crumbs": [
+      "Modules",
+      "Week 1: Introduction and setup"
+    ]
+  },
+  {
+    "objectID": "modules/week01-module.html#literature",
+    "href": "modules/week01-module.html#literature",
+    "title": "Week 1: Introduction and setup",
+    "section": "Literature",
+    "text": "Literature\n\nOllama - download and install\nCourse resources - Docker files for n8n and Ollama\nn8n quickstart - “Build Your First AI Agent” (21 min, official n8n channel)\nn8n intro course - “Essentials: Your First Workflows” (free, requires a learn.n8n.io account)\nn8n documentation",
+    "crumbs": [
+      "Modules",
+      "Week 1: Introduction and setup"
+    ]
+  },
+  {
+    "objectID": "modules/week01-module.html#background",
+    "href": "modules/week01-module.html#background",
+    "title": "Week 1: Introduction and setup",
+    "section": "Background",
+    "text": "Background\n\nn8n Full Course Masterclass 2026 - installation, core nodes, data and error handling (11 hours, GenAI Unplugged). A reference to dip into, not something to watch end to end.",
+    "crumbs": [
+      "Modules",
+      "Week 1: Introduction and setup"
+    ]
+  },
+  {
+    "objectID": "exercises/week01-exercises.html",
+    "href": "exercises/week01-exercises.html",
+    "title": "Week 1: Introduction and setup",
+    "section": "",
+    "text": "This week is about getting your tools running. Two things have to work before week 2: Ollama (a language model on your own machine) and n8n (the workflow platform we use all semester)."
+  },
+  {
+    "objectID": "exercises/week01-exercises.html#overview",
+    "href": "exercises/week01-exercises.html#overview",
+    "title": "Week 1: Introduction and setup",
+    "section": "",
+    "text": "This week is about getting your tools running. Two things have to work before week 2: Ollama (a language model on your own machine) and n8n (the workflow platform we use all semester)."
+  },
+  {
+    "objectID": "exercises/week01-exercises.html#tasks",
+    "href": "exercises/week01-exercises.html#tasks",
+    "title": "Week 1: Introduction and setup",
+    "section": "Tasks",
+    "text": "Tasks\n\nTask 1: Ollama\n\nInstall Ollama and pull the model shown in class\nAsk it something from the terminal and check you get an answer\nNote roughly how fast it responds - we come back to this in week 4\n\n\n\nTask 2: n8n installation\n\nInstall n8n on your computer\nCheck it is working\nCheck that your data/workflows are stored (you can save and load them - they survive restarts of n8n)\n\n\n\nTask 3: Your first workflow\n\nCreate: Start a new empty workflow in n8n.\nImport: Copy the JSON code from ItsLearning and paste it directly onto your n8n canvas (Ctrl+V / Cmd+V).\nRun: Click the “Execute Workflow” button.\nExplore: Can you find several different ways to trigger a run?\nVerify: Check that it works!\n\nHint: Look in the Executions/Logs to see the data flow.\n\n\n\n\nTask 4: Create your own workflow\n\nCreate a new workflow that does something useful to you\nIdeas:\n\nSend yourself a notification (email, slack, desktop)\nFetch data from an API (e.g., weather, news)\nProcess data (e.g., filter, transform)\nAutomate a task you do often\n\nTest and run your workflow to ensure it works as expected\n\n\n\nTask 5: Create a sub workflow\n\nCreate a workflow that is started by another workflow (trigger by other workflow node)\nUse the “call another n8n workflow” node to call it\nLook at executions in n8n and see that both workflows have been run\n\n\n\nExtras\n\nDebug: Can you find the error if something goes wrong?\nExpand: Add new nodes to the workflow or start a new one for your “Pet Project.”"
+  },
+  {
+    "objectID": "exercises/week01-exercises.html#simple-workflow",
+    "href": "exercises/week01-exercises.html#simple-workflow",
+    "title": "Week 1: Introduction and setup",
+    "section": "Simple workflow",
+    "text": "Simple workflow\n{\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"triggerTimes\": {\n          \"item\": [\n            {\n              \"mode\": \"everyMinute\"\n            }\n          ]\n        }\n      },\n      \"id\": \"4bdcea51-85f0-4530-8b92-f49d57732fba\",\n      \"name\": \"Cron\",\n      \"type\": \"n8n-nodes-base.cron\",\n      \"typeVersion\": 1,\n      \"position\": [\n        -400,\n        160\n      ]\n    },\n    {\n      \"parameters\": {\n        \"functionCode\": \"return [{ json: { message: 'Hello from n8n!' } }];\"\n      },\n      \"id\": \"0a44956b-b2a8-44bd-b582-1f7c117e18fa\",\n      \"name\": \"Function\",\n      \"type\": \"n8n-nodes-base.function\",\n      \"typeVersion\": 1,\n      \"position\": [\n        -144,\n        160\n      ]\n    }\n  ],\n  \"connections\": {\n    \"Cron\": {\n      \"main\": [\n        [\n          {\n            \"node\": \"Function\",\n            \"type\": \"main\",\n            \"index\": 0\n          }\n        ]\n      ]\n    },\n    \"Function\": {\n      \"main\": [\n        []\n      ]\n    }\n  },\n  \"pinData\": {},\n  \"meta\": {\n    \"templateCredsSetupCompleted\": true,\n    \"instanceId\": \"142ce4a39751dcb6d34f18aab299a116ebeaed6efba936dc6e1b437b7bae4cc3\"\n  }\n}"
+  },
+  {
+    "objectID": "exercises/week01-exercises.html#submission",
+    "href": "exercises/week01-exercises.html#submission",
+    "title": "Week 1: Introduction and setup",
+    "section": "Submission",
+    "text": "Submission\nSubmit to ItsLearning:\n\na screenshot of Ollama answering a prompt on your own machine\na screenshot of n8n running with a workflow open\n\nDue: next week Thursday 23:59"
+  },
+  {
+    "objectID": "slides/index.html",
+    "href": "slides/index.html",
+    "title": "Slides",
+    "section": "",
+    "text": "This section contains the course slides. Slides are published after each session.\n\nWeek 1: AI agenter og automatisering",
+    "crumbs": [
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "literature/index.html",
+    "href": "literature/index.html",
+    "title": "Literature",
+    "section": "",
+    "text": "Literature in md files"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About the course",
+    "section": "",
+    "text": "For any questions about the course, please contact the instructor at:\n\nEmail: lavo@ek.dk\nPlease, don’t contact me via ItsLearning",
+    "crumbs": [
+      "Course Information",
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About the course",
+    "section": "",
+    "text": "For any questions about the course, please contact the instructor at:\n\nEmail: lavo@ek.dk\nPlease, don’t contact me via ItsLearning",
+    "crumbs": [
+      "Course Information",
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#modules",
+    "href": "about.html#modules",
+    "title": "About the course",
+    "section": "Modules",
+    "text": "Modules\nUndervisningen ligger om onsdagen hele semestret. Tre gæsteforelæsninger lægges ind i planen, når deres datoer er på plads.\n\n\n\n\n\n\n\n\nUge\nDato\nEmne\n\n\n\n\n35\n26-08-26\nIntroduktion til agenter og automatisering - opsætning af Ollama og n8n\n\n\n36\n02-09-26\nn8n workflows - nodes, credentials, error handling, Ollama som node\n\n\n37\n09-09-26\nAI agenter - agent-loopet, tools, human-in-the-loop\n\n\n38\n16-09-26\nLarge language models - tokens, context, tool calling, valg af model\n\n\n39\n23-09-26\nPrompt- og context engineering\n\n\n40\n30-09-26\nCoding agents - agenter der arbejder i din kode\n\n\n41\n07-10-26\nRAG - vector og graph - Carsten Jørgensen med oplæg\n\n\n42\n\nEFTERÅRSFERIE\n\n\n43\n21-10-26\nProjekt 1 - opstart (recap af RAG, projektoplæg)**\n\n\n44\n28-10-26\nProjekt 1 - eget arbejde, ingen undervisning\n\n\n45\n04-11-26\nSpec-driven development\n\n\n46\n11-11-26\nMCP - brug af servere og eksponering af egne tools\n\n\n47\n18-11-26\nAgent-arkitekturer - sekventiel vs. parallel, multi-agent\n\n\n48\n25-11-26\nEvaluering, observability og sikkerhed for AI\n\n\n49\n02-12-26\nEksamensprojekt - opstart (kravstilling og specifikation)\n\n\n50\n09-12-26\nEksamensprojekt - eget arbejde, ingen undervisning\n\n\n51\n16-12-26\nEksamensprojekt - eget arbejde, ingen undervisning\n\n\n\nSidste undervisningsgang er 02-12. Den mundtlige eksamen ligger efter semestret - datoer meldes ud senere.",
+    "crumbs": [
+      "Course Information",
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#studieordningen",
+    "href": "about.html#studieordningen",
+    "title": "About the course",
+    "section": "Studieordningen",
+    "text": "Studieordningen\nFORMÅL OG LÆRINGSMÅL\n\nAI Agenter er avanceret AI, som selvstændigt finder strategi og løsning på komplekse opgaver. LLMer (som ChatGTP) er AI som mennesker kan chatte med og få svar, mens en AI Agent selvstændigt udfører opgaver. En AI agent har adgang til systemer og værktøjer, som den bruger til at udføre opgaver automatisk.​ ​\nPå kurset lærer du at opsætte workflows til automatisering af opgaver, som spænder fra at få daglige nyheder om f.eks. AI agenter, til et større SOME marketings setup. Du vil lære om hvordan large language models (som ChatGPT) virker og at bruge dem til AI agenter. Du vil lære prompt engineering til instruere AI agenterne til at udføre deres opgaver. Derudover kigger vi på RAGs, hvor AI får information fra vector databaser til deres opgaver​\nVi bruger workflow værktøjet n8n til at sætte vores agenter og workflows op. Der vil være behov en smule JavaScript, hvor det meste dog kan fås fra diverse LLMer uden de store problemer. Der vil være mulighed for at bruge Python e.lign programmeringssprog i det afsluttende projekt, men det er ikke et krav.",
+    "crumbs": [
+      "Course Information",
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#læringsmål",
+    "href": "about.html#læringsmål",
+    "title": "About the course",
+    "section": "Læringsmål",
+    "text": "Læringsmål\n\nViden\n\nVed hvad de forskellige LLMer er gode til\nViden om workflows og AI agenter\nKendskab til forskellige arkitekturer (sekventiel vs. parallel)\n\nFærdigheder\n\nKan oprette workflows til automatisk udførsel af arbejds- og andre processer\nBruge prompt engineering til at instruere agenter\nOprette og instruere en AI Agent til at udføre en del af en arbejdsproces\nKan teste og optimere workflows med AI agenter\nOprette og bruge RAGS og vector databaser i workflows\n\nKompetencer\n\nVælge LLMer til brug i automatisering\nKunne vurdere brug af forskellige elementer i et workflow\nGennemføre projekt med workflow og opsætning af AI agenter",
+    "crumbs": [
+      "Course Information",
+      "About"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to AI-Agenter-E2026",
+    "section": "",
+    "text": "This is the official course website for AI-Agenter-E2026. Here you will find all the necessary information and materials for the course.\nItsLearning (for notifications and assignment submissions)",
+    "crumbs": [
+      "Course Information"
+    ]
+  },
+  {
+    "objectID": "index.html#course-overview",
+    "href": "index.html#course-overview",
+    "title": "Welcome to AI-Agenter-E2026",
+    "section": "Course Overview",
+    "text": "Course Overview\nThis course is an introduction to AI agents and practical automation. You will learn to build workflows that automate real work, to design and instruct AI agents that use tools to complete tasks, and to ground those agents in your own data using vector and graph retrieval.\nWe use n8n as the workflow platform throughout, so you can see what your agents are actually doing. Along the way we cover large language models and how to choose between them, prompt and context engineering, coding agents, MCP for connecting agents to external tools, and how to test, evaluate and secure a system before you let it act on your behalf.\nThe course is built around two projects: a two-week project in the middle of the semester, and a final project that you present at the oral exam.",
+    "crumbs": [
+      "Course Information"
+    ]
+  },
+  {
+    "objectID": "index.html#what-you-need",
+    "href": "index.html#what-you-need",
+    "title": "Welcome to AI-Agenter-E2026",
+    "section": "What you need",
+    "text": "What you need\nYou will benefit from having access to one AI assistant of your own choice — Claude, ChatGPT, Gemini, Grok or another. You do not need more than one, and no assignment depends on a particular vendor.\nIn the first session we install Ollama, which runs a language model locally on your own machine. It is free, needs no API key, and every exercise in the course can fall back to it — so nobody is blocked by which subscription they happen to have. However, an old or not strong machine will only get you so far, because AI models require large amount of compute.",
+    "crumbs": [
+      "Course Information"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-links",
+    "href": "index.html#quick-links",
+    "title": "Welcome to AI-Agenter-E2026",
+    "section": "Quick Links",
+    "text": "Quick Links\n\nModules\nLiterature\nSlides\nExercises\nProjects\nFinal exam",
+    "crumbs": [
+      "Course Information"
+    ]
+  },
+  {
+    "objectID": "modules/index.html",
+    "href": "modules/index.html",
+    "title": "Modules",
+    "section": "",
+    "text": "This section contains the course modules.\nUndervisningen ligger om onsdagen hele semestret. Tre gæsteforelæsninger lægges ind i planen, når deres datoer er på plads.",
+    "crumbs": [
+      "Modules"
+    ]
+  },
+  {
+    "objectID": "modules/index.html#lecture-plan",
+    "href": "modules/index.html#lecture-plan",
+    "title": "Modules",
+    "section": "Lecture Plan",
+    "text": "Lecture Plan\n\n\n\n\n\n\n\n\nUge\nDato\nEmne\n\n\n\n\n35\n26-08-26\nIntroduktion til agenter og automatisering - opsætning af Ollama og n8n\n\n\n36\n02-09-26\nn8n workflows - nodes, credentials, error handling, Ollama som node\n\n\n37\n09-09-26\nAI agenter - agent-loopet, tools, human-in-the-loop\n\n\n38\n16-09-26\nLarge language models - tokens, context, tool calling, valg af model\n\n\n39\n23-09-26\nPrompt- og context engineering\n\n\n40\n30-09-26\nCoding agents - agenter der arbejder i din kode\n\n\n41\n07-10-26\nRAG - vector og graph\n\n\n42\n\nEFTERÅRSFERIE\n\n\n43\n21-10-26\nProjekt 1 - opstart (recap af RAG, projektoplæg)\n\n\n44\n28-10-26\nProjekt 1 - eget arbejde, ingen undervisning\n\n\n45\n04-11-26\nSpec-driven development\n\n\n46\n11-11-26\nMCP - brug af servere og eksponering af egne tools\n\n\n47\n18-11-26\nAgent-arkitekturer - sekventiel vs. parallel, multi-agent\n\n\n48\n25-11-26\nEvaluering, observability og sikkerhed\n\n\n49\n02-12-26\nEksamensprojekt - opstart (kravstilling og specifikation)\n\n\n50\n09-12-26\nEksamensprojekt - eget arbejde, ingen undervisning\n\n\n51\n16-12-26\nEksamensprojekt - eget arbejde, ingen undervisning\n\n\n\nSidste undervisningsgang er 02-12. Den mundtlige eksamen ligger efter semestret - datoer meldes ud senere.",
+    "crumbs": [
+      "Modules"
+    ]
+  },
+  {
+    "objectID": "web/index.html",
+    "href": "web/index.html",
+    "title": "Web Resources",
+    "section": "",
+    "text": "This section contains web resources related to the course."
+  },
+  {
+    "objectID": "literature/week01-literature.html",
+    "href": "literature/week01-literature.html",
+    "title": "Week 1: Introducion",
+    "section": "",
+    "text": "Intro n8n course"
+  },
+  {
+    "objectID": "modules/week02-module.html",
+    "href": "modules/week02-module.html",
+    "title": "Week 2: n8n Workflows",
+    "section": "",
+    "text": "Introduction to n8n workflows\nBuilding workflows\nIntegrating LLMs with n8n",
+    "crumbs": [
+      "Modules",
+      "Week 2: n8n Workflows"
+    ]
+  },
+  {
+    "objectID": "modules/week02-module.html#agenda",
+    "href": "modules/week02-module.html#agenda",
+    "title": "Week 2: n8n Workflows",
+    "section": "",
+    "text": "Introduction to n8n workflows\nBuilding workflows\nIntegrating LLMs with n8n",
+    "crumbs": [
+      "Modules",
+      "Week 2: n8n Workflows"
+    ]
+  },
+  {
+    "objectID": "modules/week02-module.html#objectives",
+    "href": "modules/week02-module.html#objectives",
+    "title": "Week 2: n8n Workflows",
+    "section": "Objectives",
+    "text": "Objectives\n\nUnderstand the basics of n8n\nCreate simple workflows\nIntegrate LLMs into workflows",
+    "crumbs": [
+      "Modules",
+      "Week 2: n8n Workflows"
+    ]
+  },
+  {
+    "objectID": "modules/week02-module.html#assignment",
+    "href": "modules/week02-module.html#assignment",
+    "title": "Week 2: n8n Workflows",
+    "section": "Assignment",
+    "text": "Assignment\nHanded out in class.",
+    "crumbs": [
+      "Modules",
+      "Week 2: n8n Workflows"
+    ]
+  },
+  {
+    "objectID": "modules/week02-module.html#literature",
+    "href": "modules/week02-module.html#literature",
+    "title": "Week 2: n8n Workflows",
+    "section": "Literature",
+    "text": "Literature\n\nn8n quickstart - “Build Your First AI Agent” (21 min, official n8n channel)\nn8n intro course - “Essentials: Your First Workflows” (free, requires a learn.n8n.io account)\nn8n documentation\n\nCheatSheet for n8n",
+    "crumbs": [
+      "Modules",
+      "Week 2: n8n Workflows"
+    ]
+  },
+  {
+    "objectID": "modules/week04-module.html",
+    "href": "modules/week04-module.html",
+    "title": "Week 4: Large Language Models",
+    "section": "",
+    "text": "Large language models\n\nwhat are they?\nHow are they trained?\n\nAI’s history\nOllama and use of models",
+    "crumbs": [
+      "Modules",
+      "Week 4: Large Language Models"
+    ]
+  },
+  {
+    "objectID": "modules/week04-module.html#agenda",
+    "href": "modules/week04-module.html#agenda",
+    "title": "Week 4: Large Language Models",
+    "section": "",
+    "text": "Large language models\n\nwhat are they?\nHow are they trained?\n\nAI’s history\nOllama and use of models",
+    "crumbs": [
+      "Modules",
+      "Week 4: Large Language Models"
+    ]
+  },
+  {
+    "objectID": "modules/week04-module.html#objectives",
+    "href": "modules/week04-module.html#objectives",
+    "title": "Week 4: Large Language Models",
+    "section": "Objectives",
+    "text": "Objectives\n\nKnow how an LLM works\nKnowledge chosing LLM",
+    "crumbs": [
+      "Modules",
+      "Week 4: Large Language Models"
+    ]
+  },
+  {
+    "objectID": "modules/week04-module.html#assignments",
+    "href": "modules/week04-module.html#assignments",
+    "title": "Week 4: Large Language Models",
+    "section": "Assignments",
+    "text": "Assignments\n\nTBD",
+    "crumbs": [
+      "Modules",
+      "Week 4: Large Language Models"
+    ]
+  },
+  {
+    "objectID": "modules/week04-module.html#literature",
+    "href": "modules/week04-module.html#literature",
+    "title": "Week 4: Large Language Models",
+    "section": "Literature",
+    "text": "Literature\n\nAlphaGo - The Movie | Full award-winning documentary\nLarge Language Models explained briefly\nA Brief History of AI\nThe Entire History of Artificial Intelligence (Last 100 Years)",
+    "crumbs": [
+      "Modules",
+      "Week 4: Large Language Models"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#agenda",
+    "href": "slides/week01-slides.html#agenda",
+    "title": "1. AI agenter og automatisering",
+    "section": "Agenda",
+    "text": "Agenda\n\nCourse introduction\nWho am I?\nThe systems we use\nGoals for today and Monday:\n\nn8n installed – and working\nFirst agent created in n8n – the ultimate test of the setup\nIntroduction to n8n and the first “real” workflow",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#start-installing",
+    "href": "slides/week01-slides.html#start-installing",
+    "title": "1. AI agenter og automatisering",
+    "section": "Start installing…",
+    "text": "Start installing…\n\nDownload Docker Desktop\nRun the n8n Docker command (this will automatically download the image)",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#who-am-i",
+    "href": "slides/week01-slides.html#who-am-i",
+    "title": "1. AI agenter og automatisering",
+    "section": "Who Am I?",
+    "text": "Who Am I?\n\nEducated from RUC, UC Irvine, Georgia State, IT-University of Copenhagen, CBS\n\nPh.D in systems development\nMaster (Kandidat) in software development\nMBA in general management\n\nTeaching experience from EA, The IT-University and UC Irvine\nResearch in systems development and impact of AI",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#experience",
+    "href": "slides/week01-slides.html#experience",
+    "title": "1. AI agenter og automatisering",
+    "section": "Experience",
+    "text": "Experience\n\n+15 years of practical experience in systems development\nWorked at\n\nNetcompany\nEdlund\nSaxo Bank\n\nMy Roles\n\nDeveloper\nProject manager\nManager/leader/head of department",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#techniques-processes-and-tools",
+    "href": "slides/week01-slides.html#techniques-processes-and-tools",
+    "title": "1. AI agenter og automatisering",
+    "section": "Techniques, processes and tools",
+    "text": "Techniques, processes and tools\n\nDeveloped in .net and C# (Java a long time ago)\n\n1.000 DB tables\n1.000 projects\n10 mill. Lines of code\nHigh business complexity\n\nAzure Devops, Jira, and other tools\nGithub, Cloud, AI, ..\nDevOps and Quality assurance (test automation)",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#questions",
+    "href": "slides/week01-slides.html#questions",
+    "title": "1. AI agenter og automatisering",
+    "section": "Questions?",
+    "text": "Questions?\n\nContact me via mail: lavo@ek.dk\nI “don’t” answer messages on fronter!",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#studieordningen",
+    "href": "slides/week01-slides.html#studieordningen",
+    "title": "1. AI agenter og automatisering",
+    "section": "Studieordningen",
+    "text": "Studieordningen\nFORMÅL OG LÆRINGSMÅL I\nAI Agenter er avanceret AI, som selvstændigt finder strategi og løsning på komplekse opgaver. LLMer (som ChatGPT) er AI som mennesker kan chatte med og få svar, mens en AI Agent selvstændigt udfører opgaver. En AI agent har adgang til systemer og værktøjer, som den bruger til at udføre opgaver automatisk.​ ​\nPå kurset lærer du at opsætte workflows til automatisering af opgaver, som spænder fra at få daglige nyheder om f.eks. AI agenter, til et større SOME marketings setup. Du vil lære om hvordan large language models (som ChatGPT) virker og at bruge dem til AI agenter. Du vil lære prompt engineering til instruere AI agenterne til at udføre deres opgaver. Derudover kigger vi på RAGs, hvor AI får information fra vector databaser til deres opgaver​",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#studieordningen-1",
+    "href": "slides/week01-slides.html#studieordningen-1",
+    "title": "1. AI agenter og automatisering",
+    "section": "Studieordningen",
+    "text": "Studieordningen\nFORMÅL OG LÆRINGSMÅL II \n​ Vi bruger workflow værktøjet n8n til at sætte vores agenter og workflows op. Der vil være behov en smule JavaScript, hvor det meste dog kan fås fra diverse LLMer uden de store problemer. Der vil være mulighed for at bruge Python e.lign programmeringssprog i det afsluttende projekt, men det er ikke et krav.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#læringsmål",
+    "href": "slides/week01-slides.html#læringsmål",
+    "title": "1. AI agenter og automatisering",
+    "section": "Læringsmål",
+    "text": "Læringsmål\n\nViden\n\nVed hvad de forskellige LLMer er gode til\nViden om workflows og AI agenter\nKendskab til forskellige arkitekturer (sekventiel vs. parallel)\n\nFærdigheder\n\nKan oprette workflows til automatisk udførsel af arbejds- og andre processer\nBruge prompt engineering til at instruere agenter\nOprette og instruere en AI Agent til at udføre en del af en arbejdsproces\nKan teste og optimere workflows med AI agenter\nOprette og bruge RAGS og vector databaser i workflows",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#læringsmål-1",
+    "href": "slides/week01-slides.html#læringsmål-1",
+    "title": "1. AI agenter og automatisering",
+    "section": "Læringsmål",
+    "text": "Læringsmål\n\nKompetencer\n\nVælge LLMer til brug i automatisering\nKunne vurdere brug af forskellige elementer i et workflow\nGennemføre projekt med workflow og opsætning af AI agenter",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#lecture-plan-i",
+    "href": "slides/week01-slides.html#lecture-plan-i",
+    "title": "1. AI agenter og automatisering",
+    "section": "Lecture Plan I",
+    "text": "Lecture Plan I\n\n\n\n\n\n\n\n\nUge\nDato\nEmne\n\n\n\n\n35\n26-08-26\nIntroduktion til agenter og automatisering - opsætning af Ollama og n8n\n\n\n36\n02-09-26\nn8n workflows - nodes, credentials, error handling, Ollama som node\n\n\n37\n09-09-26\nAI agenter - agent-loopet, tools, human-in-the-loop\n\n\n38\n16-09-26\nLarge language models - tokens, context, tool calling, valg af model\n\n\n39\n23-09-26\nPrompt- og context engineering\n\n\n40\n30-09-26\nCoding agents - agenter der arbejder i din kode\n\n\n41\n07-10-26\nRAG - vector og graph\n\n\n42\n\nEFTERÅRSFERIE",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#lecture-plan-ii",
+    "href": "slides/week01-slides.html#lecture-plan-ii",
+    "title": "1. AI agenter og automatisering",
+    "section": "Lecture Plan II",
+    "text": "Lecture Plan II\n\n\n\n\n\n\n\n\nWeek\nDate\nEmne\n\n\n\n\n43\n21-10-26\nProjekt 1 - opstart (recap af RAG, projektoplæg)**\n\n\n44\n28-10-26\nProjekt 1 - eget arbejde, ingen undervisning\n\n\n45\n04-11-26\nSpec-driven development\n\n\n46\n11-11-26\nMCP - brug af servere\n\n\n47\n18-11-26\nMCP servers og eksponering af egne tools\n\n\n48\n25-11-26\nTBD Evaluering, observability og sikkerhed for AI\n\n\n49\n02-12-26\nEksamensprojekt - opstart (kravstilling og specifikation)\n\n\n50\n09-12-26\nEksamensprojekt - eget arbejde, ingen undervisning, vejledning\n\n\n51\n16-12-26\nEksamensprojekt - eget arbejde, ingen undervisning, vejledning",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#teaching-approach",
+    "href": "slides/week01-slides.html#teaching-approach",
+    "title": "1. AI agenter og automatisering",
+    "section": "Teaching Approach",
+    "text": "Teaching Approach\n\nIntroduction of the topics and dialogue\nTopic discussions\n\n1-on-1 sessions\n\nExercises\n\nEasy, medium, hard – allows for progression\nFind your own “Pet project”",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#projects",
+    "href": "slides/week01-slides.html#projects",
+    "title": "1. AI agenter og automatisering",
+    "section": "Projects",
+    "text": "Projects\n\n2-week project\n\nUse of specific technology\n\nExam/finale project\n\nBuilding workflows and agents for a specific case\nMust be demonstrated as working workflows at the exam\n\nIndividual projects\n\nImportant to be engaged from the start due to course progression",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#the-exam",
+    "href": "slides/week01-slides.html#the-exam",
+    "title": "1. AI agenter og automatisering",
+    "section": "The Exam",
+    "text": "The Exam\n\nIndependent assessment of the course/module\nOral exam\n\n10-minute presentation of final project followed by a 20-minute examination (including grading)\nThe exam is individual\n\nImplementation of a workflow and a presentation of the considerations regarding its implementation\nThe workflow must run on your own computer\n\nUsing external services is permitted",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#readings",
+    "href": "slides/week01-slides.html#readings",
+    "title": "1. AI agenter og automatisering",
+    "section": "Readings",
+    "text": "Readings\n\nThe course is not particularly “literature heavy”\nI expect you to be proactive in seeking information, especially in connection with exercises and projects",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#use-of-ai-for-this-class",
+    "href": "slides/week01-slides.html#use-of-ai-for-this-class",
+    "title": "1. AI agenter og automatisering",
+    "section": "Use of AI for this class",
+    "text": "Use of AI for this class\n\nHow much AI am I allowed to use?\n\nAs much as you want! Use of AI is anticipated. The course will be hard if you don’t use AI to do assignments and projects.\nIt is part of the course (and the exam) to account for how you used AI to solve your tasks. The exam will focus on how you prompted the AIs and your overall process.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#which-models-to-use",
+    "href": "slides/week01-slides.html#which-models-to-use",
+    "title": "1. AI agenter og automatisering",
+    "section": "Which models to use?",
+    "text": "Which models to use?\n\nYou can use whatever you like.\nI have been using Claude, ChatGPT and several local models\nIt is part of the course to have challenges in the use of LLMs.\n\nE.g. slower models running on your own computer (via Ollama)",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#guest-speakers",
+    "href": "slides/week01-slides.html#guest-speakers",
+    "title": "1. AI agenter og automatisering",
+    "section": "Guest speakers",
+    "text": "Guest speakers\nTBA",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#course-pages",
+    "href": "slides/week01-slides.html#course-pages",
+    "title": "1. AI agenter og automatisering",
+    "section": "Course pages",
+    "text": "Course pages\n\nYou can find the course material here: https://vogelsang.github.io/AI-Agenter-E2026-public\nExercises and projects has to be turned in on ItsLearning - https://ek.itslearning.com/Course/Course.aspx?CourseId=7853",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#slides",
+    "href": "slides/week01-slides.html#slides",
+    "title": "1. AI agenter og automatisering",
+    "section": "Slides",
+    "text": "Slides\n\nNormally comes on the day of the lecure. Might come out earlier. I might change slides up until right before class (don’t print them)\nMix of English and Danish",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#ground-rules",
+    "href": "slides/week01-slides.html#ground-rules",
+    "title": "1. AI agenter og automatisering",
+    "section": "Ground rules",
+    "text": "Ground rules\n\nShow up on time\nBe reasonable",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#where-to-find-course-material",
+    "href": "slides/week01-slides.html#where-to-find-course-material",
+    "title": "1. AI agenter og automatisering",
+    "section": "Where to find course material?",
+    "text": "Where to find course material?\nCourse material on Github site: - https://vogelsang.github.io/AI-Agenter-E2026-public/\nAnnouncements and assignment turn ins on ItsLearning - https://ek.itslearning.com/Course/Course.aspx?CourseId=7853",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#large-language-models-chatbots",
+    "href": "slides/week01-slides.html#large-language-models-chatbots",
+    "title": "1. AI agenter og automatisering",
+    "section": "Large Language Models & ChatBots",
+    "text": "Large Language Models & ChatBots\n\n\n\nWe are familiar with ChatGPT, Claude, Grok, Gemini, etc.\nStandard interaction: A human asking a chatbot.\nUsing natural spoken language (no coding required)\nLLMs are neural networks, but more about that later",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#large-language-model",
+    "href": "slides/week01-slides.html#large-language-model",
+    "title": "1. AI agenter og automatisering",
+    "section": "Large Language model",
+    "text": "Large Language model\n\nAn LLM is a type of Artificial Intelligence trained on vast amounts of text data to understand, generate, and manipulate human language.\nTo break it down:\n\nLarge: Refers to the scale of the training data (petabytes of text) and the complexity of the model (billions of “parameters”).\nLanguage: It is built to process communication—not just English or Danish, but also computer code and mathematical logic. Model: It is a complex mathematical representation of patterns found in human thought and speech.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#llm",
+    "href": "slides/week01-slides.html#llm",
+    "title": "1. AI agenter og automatisering",
+    "section": "LLM",
+    "text": "LLM\nAn LLM is a highly advanced statistical autocomplete. It doesn’t ‘know’ facts like a person does; instead, it predicts the next most likely word (token) in a sequence based on everything it has ever read.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#artificial-intelligence",
+    "href": "slides/week01-slides.html#artificial-intelligence",
+    "title": "1. AI agenter og automatisering",
+    "section": "Artificial intelligence",
+    "text": "Artificial intelligence\n\nThe application of computer systems able to perform tasks or produce output normally requiring human intelligence, especially by applying machine learning techniques to large collections of data.\nA program or other piece of software that performs tasks or produces output normally requiring human intelligence. (Oxfrord dixionary)",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#what-is-an-ai-agent",
+    "href": "slides/week01-slides.html#what-is-an-ai-agent",
+    "title": "1. AI agenter og automatisering",
+    "section": "What is an AI Agent?",
+    "text": "What is an AI Agent?\n\n\nThe harness Concept\n\nWe place a software layer around the LLM.\nLLM = The Brain.\nSoftware = The Body.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#what-is-an-ai-agent-1",
+    "href": "slides/week01-slides.html#what-is-an-ai-agent-1",
+    "title": "1. AI agenter og automatisering",
+    "section": "What is an AI Agent?",
+    "text": "What is an AI Agent?\n\n\nKey Capabilities:\n\nReasoning: Planning steps to a goal.\nMemory: Remembering past context.\nTools: Interacting with APIs/Databases.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#example-the-meeting-booking-agent",
+    "href": "slides/week01-slides.html#example-the-meeting-booking-agent",
+    "title": "1. AI agenter og automatisering",
+    "section": "Example: The Meeting Booking Agent",
+    "text": "Example: The Meeting Booking Agent\nThe Goal: “Schedule a 30-minute sync with Peter next Tuesday afternoon.”\n\n\nChatbot (Passive)\n\nUser: “Book a meeting with Peter.”\nBot: “Tells you to look up in the calendars and send invite to Peter.”\nResult: User has to do the work.\n\n\nAI Agent (Active)\n\nUser: “Book a meeting with Peter.”\nAgent: Searches contacts for Peter, checks your calendar, emails Peter options, and creates the invite.\nResult: Task Completed.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#how-the-agent-thinks",
+    "href": "slides/week01-slides.html#how-the-agent-thinks",
+    "title": "1. AI agenter og automatisering",
+    "section": "How the Agent Thinks",
+    "text": "How the Agent Thinks\nWhen you give the command, the Agent enters a Thought-Action-Observation loop:\n\nThought: I need to find Peter’s email address.\n\nAction: Search CRM/Contacts tool for “Peter.”\nObservation: Found peter@company.com.\n\nThought: I need to find free slots on Tuesday afternoon.\n\nAction: Check Google Calendar for Tuesday between 13:00 and 17:00.\nObservation: User is free at 14:00 and 15:30.\n\nThought: I will propose these times to Peter via email.\n\nAction: Send email to Peter via Gmail tool.\nObservation: Email sent successfully.\n\nFinal Response: “I’ve reached out to Peter with two options for Tuesday afternoon.”",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#the-agents-hands-tools",
+    "href": "slides/week01-slides.html#the-agents-hands-tools",
+    "title": "1. AI agenter og automatisering",
+    "section": "The Agent’s “Hands” (Tools)",
+    "text": "The Agent’s “Hands” (Tools)\nTo book that meeting, the Agent was connected to these n8n nodes:\n\nGoogle Contacts: To find the right person.\nGoogle Calendar: To read availability and write the event.\nGmail / Outlook: To communicate with the external party.\nLLM (The Brain): To decide which tool to use and what to write.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#llm-vs.-ai-agent",
+    "href": "slides/week01-slides.html#llm-vs.-ai-agent",
+    "title": "1. AI agenter og automatisering",
+    "section": "LLM vs. AI Agent",
+    "text": "LLM vs. AI Agent\n\n\n\n\n\n\n\n\nFeature\nLLM (The Brain)\nAI Agent (The Worker)\n\n\n\n\nCore Capability\nText generation & knowledge\nGoal-oriented task completion\n\n\nDecision-Making\nNone (predicts next word)\nYes (chooses what to do next)\n\n\nTool Use\nNo (Static)\nYes (Uses APIs, Web, n8n)\n\n\nWorkflow\nSingle-step (Prompt -&gt; Result)\nMulti-step (Loop until finished)\n\n\nScope\nGenerates language\nPerforms real-world actions\n\n\nExample\nWriting a poem\nResearching a lead and sending an email",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#the-recipe-analogy",
+    "href": "slides/week01-slides.html#the-recipe-analogy",
+    "title": "1. AI agenter og automatisering",
+    "section": "The “Recipe” Analogy",
+    "text": "The “Recipe” Analogy\n\nThe Business Process: “Making Dinner for 10 People” (The high-level goal).\nThe Workflow: “The Recipe for Lasagna” (The specific, repeatable steps).\n\nA Workflow must be: - Explicit: No guessing. Every step is defined. - Repeatable: If you follow the recipe exactly, you get the same meal every time. - Automatable: Once the recipe is clear, a “robot chef” (n8n) can do the cooking for you.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#agents-need-workflows",
+    "href": "slides/week01-slides.html#agents-need-workflows",
+    "title": "1. AI agenter og automatisering",
+    "section": "Agents need workflows",
+    "text": "Agents need workflows\n\nAn LLM (Agent) might know how to write an email, but it doesn’t know when to send it, where to get the email address, or how to log the activity in a database.\nThe Workflow is the skeleton that gives the Agent a purpose and access to the real world.\nWe don’t just build AI Agents to have a conversation. We build Workflows to give those Agents a job to do.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#deterministic-vs.-agentic-workflows",
+    "href": "slides/week01-slides.html#deterministic-vs.-agentic-workflows",
+    "title": "1. AI agenter og automatisering",
+    "section": "Deterministic vs. Agentic Workflows",
+    "text": "Deterministic vs. Agentic Workflows\n\n\nDeterministic\nThe Traditional Way - Rules-based: “If This, Then That.” - Fixed Paths: Every step is pre-defined. - Predictable: Given the same input, you always get the same output. - Analogy: A train on tracks.\n\nAgentic\nThe AI-Powered Way - Goal-based: “Find the answer to X.” - Dynamic Paths: The AI decides which tools to use in real-time. - Flexible: Can handle unexpected data or “fuzzy” logic. - Analogy: A taxi driver.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#the-n8n-superpower",
+    "href": "slides/week01-slides.html#the-n8n-superpower",
+    "title": "1. AI agenter og automatisering",
+    "section": "The n8n “Superpower”",
+    "text": "The n8n “Superpower”\n\n\nWe build deterministic workflows that use AI Agents as “intelligent stops” along the way.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#exercise",
+    "href": "slides/week01-slides.html#exercise",
+    "title": "1. AI agenter og automatisering",
+    "section": "Exercise",
+    "text": "Exercise\n\nDiscuss and identify three everyday tasks that could be automated or improved with AI agent and workflows.​\nTry to find something in your own life that could be automated (find your “pet project”?)",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#n8n-nodes-to-nodes",
+    "href": "slides/week01-slides.html#n8n-nodes-to-nodes",
+    "title": "1. AI agenter og automatisering",
+    "section": "n8n: Nodes to Nodes",
+    "text": "n8n: Nodes to Nodes\n\n\nWhat is n8n?\n\nNodes to Nodes: The name represents how data flows between blocks.\nWorkflow Automation: A tool designed to build complex logic between apps.\nVisual Programming: You “code” by connecting nodes rather than writing lines of text.\n\n\n\nA workflow is a sequence of nodes that process data from start to finish. {.fragment}",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#more-n8n",
+    "href": "slides/week01-slides.html#more-n8n",
+    "title": "1. AI agenter og automatisering",
+    "section": "More n8n",
+    "text": "More n8n",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#section-1",
+    "href": "slides/week01-slides.html#section-1",
+    "title": "1. AI agenter og automatisering",
+    "section": "",
+    "text": "n8n\n\nn8n is an open-source, node-based workflow automation tool that enables users to connect various apps and services to automate tasks without extensive coding (No-code/low-code).\n\nAutomates complex workflows by connecting APIs, databases, and cloud services.\nOffers a visual, drag-and-drop interface to build workflows.\nSupports custom code with JavaScript (and Python) for advanced logic.\nSelf-hostable, providing data privacy and control.\nIntegrates with hundreds of applications out-of-the-box.\nUseful for automating repetitive tasks, data synchronization, and alerts.\nNote: Everything we build in n8n can also be done in Python, for example.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#introduction-course",
+    "href": "slides/week01-slides.html#introduction-course",
+    "title": "1. AI agenter og automatisering",
+    "section": "Introduction course",
+    "text": "Introduction course\n\nIntroduction course.\nTakes app. 2 hours.\nGives you the fundamentals.\nTry it out while reading the course.\nUnfortuently moved behind a registration wall",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#local-vs.-cloud-n8n",
+    "href": "slides/week01-slides.html#local-vs.-cloud-n8n",
+    "title": "1. AI agenter og automatisering",
+    "section": "Local vs. Cloud n8n",
+    "text": "Local vs. Cloud n8n\n\nn8n is available in both a local and a cloud version.\nIn this course, we will use the local version.\n\nFree: No subscription or costs.\nPrivacy: No GDPR issues (your data stays on your machine).",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#ollama-1",
+    "href": "slides/week01-slides.html#ollama-1",
+    "title": "1. AI agenter og automatisering",
+    "section": "Ollama",
+    "text": "Ollama\n\n\n\n\n\n\n\n\nLocal LLM Runner\n\nRun AI Locally: Allows you to run powerful models (like Llama 3 or Mistral) on your own computer.\nPrivacy & Speed: No data leaves your machine, and there is no latency from the cloud.\nEasy Integration: Connects perfectly with n8n to act as the “Brain” for your local agents.\nFree: No API costs or monthly subscriptions.\nCLI integration: Integrates with Claude Code, COdex, etc. via Ollama Launch.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#how-to-install-n8n-locally",
+    "href": "slides/week01-slides.html#how-to-install-n8n-locally",
+    "title": "1. AI agenter og automatisering",
+    "section": "How to Install n8n Locally",
+    "text": "How to Install n8n Locally\nYou have two main paths to run n8n on your own computer. Both are free and private.\n\n\nOption A: Docker (Recommended)\n\nPros: Isolated environment, easy to backup, professional standard.\nCons: Requires installing Docker Desktop first.\n\n\nOption B: npx / npm\n\nPros: Instant start if you already have Node.js.\nCons: Brittle; if you close the terminal, n8n stops. Harder to manage long-term.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#installation-npx-node.js",
+    "href": "slides/week01-slides.html#installation-npx-node.js",
+    "title": "1. AI agenter og automatisering",
+    "section": "Installation: npx (Node.js)",
+    "text": "Installation: npx (Node.js)\nIf you don’t want to use Docker, you can run n8n directly using Node.js.\n\nRequirement: Ensure you have Node.js installed.\nRun this command:\nnpx n8n\nKeep it open: Do not close this terminal window while working, or n8n will stop.\nAccess: Open http://localhost:5678.\n\nNote: Your data is saved in your user home folder under /.n8n. {.fragment}",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#which-should-i-choose",
+    "href": "slides/week01-slides.html#which-should-i-choose",
+    "title": "1. AI agenter og automatisering",
+    "section": "Which should I choose?",
+    "text": "Which should I choose?\n\n\n\n\n\n\n\n\nFeature\nDocker (Recommended)\nnpx / npm\n\n\n\n\nEase of Setup\nMedium (Install Docker)\nEasy (if Node.js exists)\n\n\nData Safety\nHigh (Stored in Volume)\nMedium (Stored in Home dir)\n\n\nStability\nHigh (Runs in background)\nLow (Stops when terminal closes)\n\n\nUpdates\nVery Easy\nManual\n\n\n\n\n\n\n\n\n\nTip\n\n\nTeacher’s Advice: Use Docker. It prepares you for how AI Agents are actually deployed in the real world.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#step-by-step-docker-setup-i",
+    "href": "slides/week01-slides.html#step-by-step-docker-setup-i",
+    "title": "1. AI agenter og automatisering",
+    "section": "Step-by-Step: Docker Setup I",
+    "text": "Step-by-Step: Docker Setup I\n\nInstall Docker Desktop\n\nDownload for Mac/Windows: docker.com/products/docker-desktop\nImportant: Start the Docker Desktop application after installation and keep it running.\n\nEnsure Docker Desktop is Running\n\nVerify the Docker icon in your system tray/menubar indicates it’s active.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#step-by-step-docker-setup-ii",
+    "href": "slides/week01-slides.html#step-by-step-docker-setup-ii",
+    "title": "1. AI agenter og automatisering",
+    "section": "Step-by-Step: Docker Setup II",
+    "text": "Step-by-Step: Docker Setup II\n\nOpen your Terminal\n\nMac: Terminal or iTerm2.\nWindows: PowerShell or Command Prompt.\n\nRun the command (See next slides for your specific OS).\nAccess n8n:\n\nOpen your browser to: http://localhost:5678",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#running-n8n-mac-linux",
+    "href": "slides/week01-slides.html#running-n8n-mac-linux",
+    "title": "1. AI agenter og automatisering",
+    "section": "Running n8n (Mac & Linux)",
+    "text": "Running n8n (Mac & Linux)\nCopy and paste this command into your terminal to run n8n in the background:\ndocker run -d \\\n  --name n8n \\\n  -p 5678:5678 \\\n  -v ~/.n8n:/home/node/.n8n \\\n  n8nio/n8n\n\n\n\n\n\n\nNote\n\n\nThe -v ~/.n8n:/home/node/.n8n part ensures your workflows are saved in your user’s home folder.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#running-n8n-windows-powershell",
+    "href": "slides/week01-slides.html#running-n8n-windows-powershell",
+    "title": "1. AI agenter og automatisering",
+    "section": "Running n8n (Windows PowerShell)",
+    "text": "Running n8n (Windows PowerShell)\ndocker run -d `\n  --name n8n `\n  -p 5678:5678 `\n  -v ${env:USERPROFILE}\\.n8n:/home/node/.n8n `\n  n8nio/n8n",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#why-these-specific-flags",
+    "href": "slides/week01-slides.html#why-these-specific-flags",
+    "title": "1. AI agenter og automatisering",
+    "section": "Why these specific flags?",
+    "text": "Why these specific flags?\n\n-d (Detached): Runs the container in the background. You can close your terminal and n8n will keep running.\n--name n8n: Gives the container a friendly name so you don’t have to remember a random ID.\n-p 5678:5678: Maps the internal n8n port to your computer’s port.\n-v (Volume): The most important part. This links a folder on your computer to n8n. Without this, your work vanishes when the container stops.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#docker-management",
+    "href": "slides/week01-slides.html#docker-management",
+    "title": "1. AI agenter og automatisering",
+    "section": "Docker Management",
+    "text": "Docker Management\n\nAccess: http://localhost:5678\nStop: docker stop n8n\nStart: docker start n8n\nUpdate:\n\ndocker pull n8nio/n8n\ndocker stop n8n && docker rm n8n\nRun the “docker run” command again.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#setting-up-your-account",
+    "href": "slides/week01-slides.html#setting-up-your-account",
+    "title": "1. AI agenter og automatisering",
+    "section": "Setting Up Your Account",
+    "text": "Setting Up Your Account\n\n\nInitial Configuration\n\nUse a working email address: This is required to create your local owner account and receive your license.\nGet the free license key:\n\nYou will be prompted to get a community license.\nActivate it via the link sent to your email.\n\nIf you missed the prompt:\n\nYou can activate it later in the interface.\nGo to Settings -&gt; Usage and plan.\n\n\n\n\n\n\n\n\nImportant\n\n\nActivating the free license is essential—it is often required to use the advanced AI nodes in n8n!\n\n\n\n\n\nThe first screen you will see at http://localhost:5678",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#welcome-to-the-dashboard",
+    "href": "slides/week01-slides.html#welcome-to-the-dashboard",
+    "title": "1. AI agenter og automatisering",
+    "section": "Welcome to the Dashboard",
+    "text": "Welcome to the Dashboard\n\n\nYour Control Center\n\nWorkflows: This is where you build your automation logic.\nCredentials: Where you safely store keys for Gmail, ChatGPT, etc.\nExecutions: The “History” tab—see exactly what happened in past runs.\nTemplates: A great place to find inspiration and pre-built logic.\n\n\n\n\n\n\n\nTip\n\n\nLook for the “Test a simple AI Agent example” button—it’s a great way to see an agent in action immediately!\n\n\n\n\n\nThe overview screen after a successful setup.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#dont-let-your-workflows-disappear",
+    "href": "slides/week01-slides.html#dont-let-your-workflows-disappear",
+    "title": "1. AI agenter og automatisering",
+    "section": "Don’t Let Your Workflows Disappear!",
+    "text": "Don’t Let Your Workflows Disappear!\n\nVolume Mapping keeps your workflows stored on your physical hard drive instead of inside the temporary Docker container.\nWithout the -v flag: All your work is deleted every time the container is stopped or updated.\nHow it works: Your local folder is “linked” to /home/node/.n8n inside the container in real-time.\n\n\n\n\n\n\n\nData Safety\n\n\nThink of the Docker container like a hotel room: if you don’t put your things in the “Safe” (the Volume), the maid (Docker) will clear everything out when you check out!",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#verify-your-setup",
+    "href": "slides/week01-slides.html#verify-your-setup",
+    "title": "1. AI agenter og automatisering",
+    "section": "Verify Your Setup",
+    "text": "Verify Your Setup\nTo ensure your data is actually saving to your hard drive, perform this “Stress Test”:\n\nCreate a simple “Hello World” workflow in n8n and save it.\nStop the engine in your terminal:\ndocker stop n8n\nCheck: Refresh http://localhost:5678. The site should be unreachable.\nRestart:\ndocker start n8n\nConfirm: Refresh the browser. Is your workflow still there?\n\nWhere is my data?\n\nWindows: C:\\Users\\&lt;your-name&gt;\\.n8n\nMac/Linux: ~/.n8n\n\n\n\n\n\n\n\nBackup Tip\n\n\nCopy this folder to a USB stick or cloud drive occasionally. It contains all your workflows and credentials!",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#n8n-where-to-find-your-data",
+    "href": "slides/week01-slides.html#n8n-where-to-find-your-data",
+    "title": "1. AI agenter og automatisering",
+    "section": "n8n: Where to find your data",
+    "text": "n8n: Where to find your data\n\nWindows: C:\\Users\\&lt;YourUsername&gt;\\.n8n\nmacOS/Linux: ~/.n8n\n(Full path: /Users/&lt;YourUsername&gt;/.n8n or /home/&lt;YourUsername&gt;/.n8n)\n\nThe Most Important File\n\ndatabase.sqlite\n\nThis single file contains all your workflows, credentials, and settings.\nIf you lose this file, you lose your work.\nBack it up!\n\n\n\n\n\n\n\n\nFinding Hidden Folders\n\n\nFolders starting with a dot (like .n8n) are often hidden by default. - Mac: Press Cmd + Shift + . in Finder to show hidden files. - Windows: Enable “Hidden items” under the View tab in File Explorer.",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#ollama-2",
+    "href": "slides/week01-slides.html#ollama-2",
+    "title": "1. AI agenter og automatisering",
+    "section": "Ollama",
+    "text": "Ollama\nWe will install and connect it to n8n next time",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week01-slides.html#later",
+    "href": "slides/week01-slides.html#later",
+    "title": "1. AI agenter og automatisering",
+    "section": "Later",
+    "text": "Later\n\nDocker\nQdrant\nNEO4J",
+    "crumbs": [
+      "Slides",
+      "1. AI agenter og automatisering"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#agenda",
+    "href": "slides/week03-slides.html#agenda",
+    "title": "3. AI agenter",
+    "section": "Agenda",
+    "text": "Agenda\n\nIntroduction to agents\nAgents in n8n\nExercises",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#experiences-with-n8n",
+    "href": "slides/week03-slides.html#experiences-with-n8n",
+    "title": "3. AI agenter",
+    "section": "Experiences with n8n",
+    "text": "Experiences with n8n\n\nChallenges?\nTips and tricks?",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#feedback",
+    "href": "slides/week03-slides.html#feedback",
+    "title": "3. AI agenter",
+    "section": "Feedback",
+    "text": "Feedback\n\nexamples…",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#ai-agents",
+    "href": "slides/week03-slides.html#ai-agents",
+    "title": "3. AI agenter",
+    "section": "AI agents",
+    "text": "AI agents\n\nAn Agent is a system that leverages an AI model to interact with its environment in order to achieve a user-defined objective.\nIt combines reasoning, planning, and the execution of actions (often via external tools) to fulfill tasks.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#llm-vs.-ai-agent",
+    "href": "slides/week03-slides.html#llm-vs.-ai-agent",
+    "title": "3. AI agenter",
+    "section": "LLM vs. AI Agent",
+    "text": "LLM vs. AI Agent",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#elements-of-an-ai-agent",
+    "href": "slides/week03-slides.html#elements-of-an-ai-agent",
+    "title": "3. AI agenter",
+    "section": "Elements of an AI Agent",
+    "text": "Elements of an AI Agent\n\nPerception\n\nIt’s the ability to gather information from its environment.\n\nDecision-making\n\nThis is the agent’s “brain.” Based on its perception (the information gathered) and its programmed goals, the agent decides what to do next.\nThe agent can plan ahead (“think”)",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#elements-of-an-ai-agent-1",
+    "href": "slides/week03-slides.html#elements-of-an-ai-agent-1",
+    "title": "3. AI agenter",
+    "section": "Elements of an AI Agent",
+    "text": "Elements of an AI Agent\n\nAction\n\nOnce a decision is made, the agent needs to act upon it.\nSend message to user, call an API, run a workflow, update DB, etc.\nHappens through definition of tools or function calling\n\nMemory\n\nAgents often need to remember past interactions or learned information to provide context for future decisions.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#prompt-user-message",
+    "href": "slides/week03-slides.html#prompt-user-message",
+    "title": "3. AI agenter",
+    "section": "Prompt (User Message)",
+    "text": "Prompt (User Message)\n\n\n\nThe prompt or the user message is the input to the AI agent\n\nThis is the request to the agent\n\nIt does not have to be a human\n\nIt can be other systems and even other agents",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#system-message",
+    "href": "slides/week03-slides.html#system-message",
+    "title": "3. AI agenter",
+    "section": "System message",
+    "text": "System message\n\n\n\nSystem messages (also called System Prompts) define how the model should behave.\n\nThis is where you can get the agent to talk like a pirate – or something more useful",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#the-brain-ai-models",
+    "href": "slides/week03-slides.html#the-brain-ai-models",
+    "title": "3. AI agenter",
+    "section": "The brain (AI models)",
+    "text": "The brain (AI models)\n\n\n\nThis is where the “thinking” happens.\nThe AI model handles reasoning and planning.\nIt decides which Actions to take based on the situation.\nThe brain of the agent is the used LLM",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#thought-action-observation-cycle",
+    "href": "slides/week03-slides.html#thought-action-observation-cycle",
+    "title": "3. AI agenter",
+    "section": "Thought-Action-Observation Cycle",
+    "text": "Thought-Action-Observation Cycle\n\n\n\nThe Core Components\n\nAgents work in a continuous cycle of: thinking (Thought) → acting (Act) and observing (Observe)\n\nThought: The LLM part of the Agent decides what the next step should be.\nAction: The agent takes an action, by calling the tools with the associated arguments.\nObservation: The model reflects on the response from the tool.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#the-body-capabilities-and-tools",
+    "href": "slides/week03-slides.html#the-body-capabilities-and-tools",
+    "title": "3. AI agenter",
+    "section": "The Body (Capabilities and Tools)",
+    "text": "The Body (Capabilities and Tools)\n\n\n\nThis part represents everything the Agent is equipped to do.\nThe scope of possible actions depends on what the agent has been equipped with.\n\nFor example, because humans lack wings, they can’t perform the “fly” Action, but they can execute Actions like “walk”, “run” ,“jump”, “grab”, and so on.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#tools",
+    "href": "slides/week03-slides.html#tools",
+    "title": "3. AI agenter",
+    "section": "Tools",
+    "text": "Tools\n\nA Tool is a function given to the LLM.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#tools-should",
+    "href": "slides/week03-slides.html#tools-should",
+    "title": "3. AI agenter",
+    "section": "Tools should…",
+    "text": "Tools should…\n\nA good tool should be something that complements the power of an LLM .\n\nFor instance, if you need to perform arithmetic, giving a calculator tool to your LLM will provide better results than relying on the native capabilities of the model.\nLLMs predict the completion of a prompt based on their training data , which means that their internal knowledge only includes events prior to their training. Therefore, if your agent needs up-to-date data you must provide it through some tool.\n\nA Tool should contain:\n\nA textual description of what the function does .\nA Callable (something to perform an action).\nArguments with typings.\n(Optional) Outputs with typings.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#tools-to-the-agent",
+    "href": "slides/week03-slides.html#tools-to-the-agent",
+    "title": "3. AI agenter",
+    "section": "Tools to the agent",
+    "text": "Tools to the agent\n\nFor this to work, we must be very precise and accurate about:\n\nWhat the tool does\nWhat exact inputs it expects",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#context-engineering",
+    "href": "slides/week03-slides.html#context-engineering",
+    "title": "3. AI agenter",
+    "section": "Context engineering",
+    "text": "Context engineering\n\nPrompt engineering focuses on the wording of one instruction.\nContext engineering focuses on everything the model sees when it makes its next decision.\nContext can include:\n\nSystem and user messages\nConversation history and memory\nRetrieved documents and data\nAvailable tools and previous tool results\n\nThe goal is to provide the right information at the right time — not simply as much context as possible.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#harnessing-agents",
+    "href": "slides/week03-slides.html#harnessing-agents",
+    "title": "3. AI agenter",
+    "section": "Harnessing agents",
+    "text": "Harnessing agents\n\nAn agent harness is the surrounding system that makes an agent useful and reliable.\nIt manages:\n\nThe agent loop and context\nTools, permissions, and guardrails\nMemory, state, and human approval\nValidation, retries, and logging\n\nAn n8n workflow can act as a harness around an AI agent.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#guardrails",
+    "href": "slides/week03-slides.html#guardrails",
+    "title": "3. AI agenter",
+    "section": "Guardrails",
+    "text": "Guardrails\n\nGuardrails are checks and constraints around an agent’s input, actions, and output.\nThey can:\n\nSanitize text by removing personal data or secret keys\nReject, retry, or route an unsafe result to a human\n\nExample: when an agent writes a wiki page, every paragraph must contain an internal wiki link.\nn8n has a Guardrails node for validating and sanitizing text.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#calculator-tool",
+    "href": "slides/week03-slides.html#calculator-tool",
+    "title": "3. AI agenter",
+    "section": "Calculator tool",
+    "text": "Calculator tool\n\nTool Name: calculator,\nDescription: Multiply two integers.,\nArguments: a: int, b: int,\nOutputs: int",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#agents-vs-llm-models",
+    "href": "slides/week03-slides.html#agents-vs-llm-models",
+    "title": "3. AI agenter",
+    "section": "Agents vs (LLM) models",
+    "text": "Agents vs (LLM) models\n\nAgents can find their own strategy or path for solving a task\nModels are “fixed”…\n10 minutes to talk about the difference between Agents and LLMs - and find questions to ask about agents\n\nStart “solo” for 2-3 minute and use the rest of the time with the person sitting next to you",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#when-not-to-use-agents",
+    "href": "slides/week03-slides.html#when-not-to-use-agents",
+    "title": "3. AI agenter",
+    "section": "When NOT to use Agents",
+    "text": "When NOT to use Agents\n\nUse a deterministic solution if the workflow is well-defined and predictable\n\nFixed rules, no decision-making needed\nExample: Form validation, data formatting, calculations\n\nUse a simple LLM if you just need generation or classification without reasoning\n\nOne-shot prediction tasks\nExample: Sentiment analysis, text summarization\n\nAgents are best for:\n\nComplex problems requiring reasoning\nMultiple tool interactions\nUncertain or dynamic workflows\nTasks requiring adaptation",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#prompt-examples",
+    "href": "slides/week03-slides.html#prompt-examples",
+    "title": "3. AI agenter",
+    "section": "Prompt Examples",
+    "text": "Prompt Examples\n\n\nSystem Prompt:\nYou are a helpful customer support assistant.\nYou are professional but friendly.\nYou always try to solve problems first\nbefore escalating to a human.\nKeep responses concise.\n\nUser Prompt:\nI've been trying to log in to my account\nfor the past hour but keep getting an\nerror message: \"Invalid credentials\".\nI'm sure my password is correct.\nWhat should I do?",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#exercise-agent-personalities",
+    "href": "slides/week03-slides.html#exercise-agent-personalities",
+    "title": "3. AI agenter",
+    "section": "Exercise: Agent Personalities",
+    "text": "Exercise: Agent Personalities\nCreate 3 agents that answer the SAME user question but with different personalities:\nCreate agents in n8n and test with the same input:\n\nAgent 1: Pirate - Speaks like a pirate, uses nautical language\nAgent 2: Tutor - Empathetic, asks clarifying questions, supportive\nAgent 3: Technical Expert - Formal, detailed, uses jargon, very precise\n\nTest question:\n\n“I want to learn to code”",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#observe",
+    "href": "slides/week03-slides.html#observe",
+    "title": "3. AI agenter",
+    "section": "Observe",
+    "text": "Observe\n\nHow does the system prompt change the response?\nWhich personality is most helpful for your use case?\nWhat makes an effective system prompt?",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#exercise-use-of-tools",
+    "href": "slides/week03-slides.html#exercise-use-of-tools",
+    "title": "3. AI agenter",
+    "section": "Exercise: use of tools",
+    "text": "Exercise: use of tools\nBuild one agent with a calculator tool. Ask it three questions:\n\nOne that needs calculation\none that does not, and one\nAmbiguous question.\n\nObserve when it chooses the tool, what arguments it sends, and how it uses the result.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#spectrum-of-agents",
+    "href": "slides/week03-slides.html#spectrum-of-agents",
+    "title": "3. AI agenter",
+    "section": "Spectrum of agents",
+    "text": "Spectrum of agents\n\nAgents exist on a continuous spectrum of increasing agency",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#architecture-sequential-agents",
+    "href": "slides/week03-slides.html#architecture-sequential-agents",
+    "title": "3. AI agenter",
+    "section": "Architecture – sequential agents",
+    "text": "Architecture – sequential agents\n\n\n\nChain the AI agents\nOne agent’s output feeds into the next, creating a linear workflow\nParallel agents execute multiple tasks simultaneously\nSerial execution is suitable for predictable, multi-step processes\nParallel execution is better for complex problems requiring simultaneous effort and faster overall completion, enabling more efficient resource use and breaking down large tasks.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#multi-agent-systems",
+    "href": "slides/week03-slides.html#multi-agent-systems",
+    "title": "3. AI agenter",
+    "section": "Multi-agent systems",
+    "text": "Multi-agent systems\n\n\n\nA multi-agent system consists of multiple specialized agents working together under the coordination of an orchestrator agent.\nAgents can work sequentially, in parallel, or through handoffs.\nThis approach distributes complex work among agents with distinct roles.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#multi-agent-coding-example",
+    "href": "slides/week03-slides.html#multi-agent-coding-example",
+    "title": "3. AI agenter",
+    "section": "Multi-agent coding example",
+    "text": "Multi-agent coding example\n\nPlanner: breaks a feature request into smaller tasks\nImplementer: edits the code and runs the relevant commands\nReviewer/tester: checks the changes against the requirements\nThe orchestrator passes the relevant context and results between agents.\nA human remains responsible for approving important changes.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#how-to-create-ai-agents",
+    "href": "slides/week03-slides.html#how-to-create-ai-agents",
+    "title": "3. AI agenter",
+    "section": "How to create AI agents",
+    "text": "How to create AI agents\n\n\n\nCode from scratch\nUse frameworks\n\nLangChain, LlamaIndex, Semantic Kernel, or Autogen\nRequires coding\n\nPlatforms such as n8n\n\nVisual node based – low entry barrier\n“no-code”, but still technical to setup",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#ai-agent-1",
+    "href": "slides/week03-slides.html#ai-agent-1",
+    "title": "3. AI agenter",
+    "section": "AI agent",
+    "text": "AI agent\n\n\n\nGenerates a plan and executes it\nCan use external tools\nTools can be added\nCan be instructed through system and user prompts\nProbably the one you will use most",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#demo---ai-agenten",
+    "href": "slides/week03-slides.html#demo---ai-agenten",
+    "title": "3. AI agenter",
+    "section": "Demo - AI agenten",
+    "text": "Demo - AI agenten\n\n\n\nUser prompts\nSystem prompt\nInsert data into prompts\nAdd LLM\nMemory",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#agent-tutorial",
+    "href": "slides/week03-slides.html#agent-tutorial",
+    "title": "3. AI agenter",
+    "section": "Agent tutorial",
+    "text": "Agent tutorial\n\n\nhttps://docs.n8n.io/advanced-ai/intro-tutorial/",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#etl",
+    "href": "slides/week03-slides.html#etl",
+    "title": "3. AI agenter",
+    "section": "ETL",
+    "text": "ETL\n\n\n\nETL stands for Extract, Transform, Load and is a core data integration process where data is pulled from various sources, cleaned and converted into a usable format, and then stored in a target system, such as a data warehouse, for analysis and business intelligence.\nWe use the same principle to get data ready for our agents",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#exercise-ii---create-your-own-newsletter",
+    "href": "slides/week03-slides.html#exercise-ii---create-your-own-newsletter",
+    "title": "3. AI agenter",
+    "section": "Exercise II - create your own newsletter",
+    "text": "Exercise II - create your own newsletter\n\nSetup a trigger\nFind info from various sources\n\nRSS feeds, scrape home pages , search youtube videos ( use transcription), e-mails, reddit, …\nStart with something simple and get it to work\n\nSetup one or more AI Agents to write your newsletter\nSend the newsletter to yourself (email, chat, Google docs, etc.)",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#architecture",
+    "href": "slides/week03-slides.html#architecture",
+    "title": "3. AI agenter",
+    "section": "Architecture",
+    "text": "Architecture",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#baseline-solution-v.-1.0",
+    "href": "slides/week03-slides.html#baseline-solution-v.-1.0",
+    "title": "3. AI agenter",
+    "section": "Baseline solution v. 1.0",
+    "text": "Baseline solution v. 1.0\n\nExtract data\n\nUse one or more “sources”, reddit, rss\n\nAgent\n\nFormats data\n\nSend newsletter, WhatsApp, Telegram, whatever…",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#human-in-the-loop.-v.-2.0",
+    "href": "slides/week03-slides.html#human-in-the-loop.-v.-2.0",
+    "title": "3. AI agenter",
+    "section": "Human in the loop. v. 2.0",
+    "text": "Human in the loop. v. 2.0\n\nData\n\nUse different “sources”, may still be of the same type\n\nMerge data from different sources\nHuman in the loop\n\nSend newsletter to “human” for a check\nHuman feedback, the agenten is using in the “next loop”/revision",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#more-data-and-selected-information---v.-3.0",
+    "href": "slides/week03-slides.html#more-data-and-selected-information---v.-3.0",
+    "title": "3. AI agenter",
+    "section": "More data and selected information - v. 3.0",
+    "text": "More data and selected information - v. 3.0\n\nData\n\nSeveral and different types of data sources\nScrape a home page\n\nAgents\n\nAgents selects information based on criteria you still for\nKeeps track of what information has been selected - too much / too little\nSend information in different formats (email, chat, Google docs, etc.)\n\nHandling of rejected mails, etc.",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "slides/week03-slides.html#next-session",
+    "href": "slides/week03-slides.html#next-session",
+    "title": "3. AI agenter",
+    "section": "Next session…",
+    "text": "Next session…\n\nWhat are LLMs ?\nAI history\n(more) Introduction to Ollama",
+    "crumbs": [
+      "Slides",
+      "3. AI agenter"
+    ]
+  },
+  {
+    "objectID": "web/final-exam.html",
+    "href": "web/final-exam.html",
+    "title": "Final exam",
+    "section": "",
+    "text": "Final exam\nDates - TBD. The exam dates will be announced later.\n\nOral exam covering all course topics.\n\nStructure: - 10 minutes to present your project - 10-15 minutes Q&A - 5 minutes grade and feedback\nMax 30 minutes",
+    "crumbs": [
+      "Final Exam"
+    ]
+  }
+]
