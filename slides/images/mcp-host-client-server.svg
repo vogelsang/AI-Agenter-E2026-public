@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="290" viewBox="0 0 1200 290" role="img" aria-labelledby="title desc">
+<title id="title">MCP client and server in n8n</title>
+<desc id="desc">An AI Agent in the n8n host uses an MCP Client Tool. It discovers and calls tools on an n8n MCP Server Trigger, which exposes a workflow tool. Results return to the client.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f8a875"/></marker></defs>
+<g font-family="Arial, sans-serif" fill="#eee">
+<rect x="10" y="15" width="490" height="250" rx="15" fill="#222" stroke="#aaa" stroke-width="2"/>
+<rect x="700" y="15" width="490" height="250" rx="15" fill="#222" stroke="#aaa" stroke-width="2"/>
+<text x="255" y="58" text-anchor="middle" font-size="27" font-weight="bold">Host: n8n</text>
+<text x="945" y="58" text-anchor="middle" font-size="27" font-weight="bold">MCP server: n8n</text>
+<g fill="#363636" stroke="#ddd" stroke-width="2">
+<rect x="35" y="100" width="155" height="100" rx="8"/>
+<rect x="250" y="100" width="220" height="100" rx="8"/>
+<rect x="730" y="100" width="220" height="100" rx="8"/>
+<rect x="1010" y="100" width="155" height="100" rx="8"/>
+</g>
+<g text-anchor="middle" font-size="24">
+<text x="112" y="159">AI Agent</text>
+<text x="360" y="144">MCP Client</text><text x="360" y="174">Tool</text>
+<text x="840" y="144">MCP Server</text><text x="840" y="174">Trigger</text>
+<text x="1087" y="144">Workflow</text><text x="1087" y="174">tool</text>
+</g>
+<g fill="none" stroke="#f8a875" stroke-width="3" marker-end="url(#arrow)">
+<path d="M195 150H243"/><path d="M955 150H1003"/>
+<path d="M475 119H723"/><path d="M725 188H477"/>
+</g>
+<g text-anchor="middle" font-size="19" fill="#f8a875">
+<text x="600" y="106">Discover / call tools</text>
+<text x="600" y="221">Tool result</text>
+</g>
+</g></svg>

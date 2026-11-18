@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Final project – AI-Agenter-E2026</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c61c9bf42dde3171b0078e5914bdbefb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" aria-label="Toolbar">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../projects/two-week-project.html">Projects</a></li><li class="breadcrumb-item"><a href="../projects/factory-project.html">Final project</a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto" aria-label="Site">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">AI-Agenter-E2026</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text" id="quarto-sidebar-section-1-label">Course Information</span></a>
+            <button type="button" class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section: Course Information">
+              <i class="bi bi-chevron-right ms-2" aria-hidden="true"></i>
+            </button> 
+      </div>
+      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../modules/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text" id="quarto-sidebar-section-2-label">Modules</span></a>
+            <button type="button" class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section: Modules">
+              <i class="bi bi-chevron-right ms-2" aria-hidden="true"></i>
+            </button> 
+      </div>
+      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week01-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: Introduction and setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week02-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2: n8n Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week03-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3: AI Agents</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week04-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: Large Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week05-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 5: Prompt engineering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week06-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6: Agentic engineering and RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week07-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7: RAG and project start</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week08-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 8: MCP</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week09-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 9: Coding agents — Bo Fischer Carlsen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week10-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 10: Spec-driven development and project kickoff</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week11-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Andreas Elmertoft and project</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/week12-module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 12: Supervision</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../slides/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text" id="quarto-sidebar-section-3-label">Slides</span></a>
+            <button type="button" class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-controls="quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section: Slides">
+              <i class="bi bi-chevron-right ms-2" aria-hidden="true"></i>
+            </button> 
+      </div>
+      <ul id="quarto-sidebar-section-3" aria-labelledby="quarto-sidebar-section-3-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week01-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. AI agenter og automatisering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week02-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Introduction to n8n</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week03-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. AI agenter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week04-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Large Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week05-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Prompt and context engineering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week06-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Graph RAG and Neo4j</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/lec7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7: RAG and project start</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week08-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8: Model Context Protocol</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week09-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9: Coding agents</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/week10-slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10: Spec-driven development</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../projects/two-week-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text" id="quarto-sidebar-section-4-label">Projects</span></a>
+            <button type="button" class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-controls="quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section: Projects">
+              <i class="bi bi-chevron-right ms-2" aria-hidden="true"></i>
+            </button> 
+      </div>
+      <ul id="quarto-sidebar-section-4" aria-labelledby="quarto-sidebar-section-4-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/two-week-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-week project</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/factory-project.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Final project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../web/final-exam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text" id="quarto-sidebar-section-5-label">Final Exam</span></a>
+            <button type="button" class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-controls="quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section: Final Exam">
+              <i class="bi bi-chevron-right ms-2" aria-hidden="true"></i>
+            </button> 
+      </div>
+      <ul id="quarto-sidebar-section-5" aria-labelledby="quarto-sidebar-section-5-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../web/final-exam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final exam</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#project-type" id="toc-project-type" class="nav-link active" data-scroll-target="#project-type">Project type</a></li>
+  <li><a href="#scope" id="toc-scope" class="nav-link" data-scroll-target="#scope">Scope</a></li>
+  <li><a href="#how-the-factory-works" id="toc-how-the-factory-works" class="nav-link" data-scroll-target="#how-the-factory-works">How the factory works</a>
+  <ul class="collapse">
+  <li><a href="#specification-template" id="toc-specification-template" class="nav-link" data-scroll-target="#specification-template">Specification template</a></li>
+  <li><a href="#states" id="toc-states" class="nav-link" data-scroll-target="#states">States</a></li>
+  </ul></li>
+  <li><a href="#basic-and-advanced" id="toc-basic-and-advanced" class="nav-link" data-scroll-target="#basic-and-advanced">Basic and advanced</a>
+  <ul class="collapse">
+  <li><a href="#basic-a-manual-factory" id="toc-basic-a-manual-factory" class="nav-link" data-scroll-target="#basic-a-manual-factory">Basic A: manual factory</a></li>
+  <li><a href="#basic-b-automated-factory" id="toc-basic-b-automated-factory" class="nav-link" data-scroll-target="#basic-b-automated-factory">Basic B: automated factory</a></li>
+  <li><a href="#advanced-safe-and-extended" id="toc-advanced-safe-and-extended" class="nav-link" data-scroll-target="#advanced-safe-and-extended">Advanced: safe and extended</a></li>
+  </ul></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a>
+  <ul class="collapse">
+  <li><a href="#n8n-workflows" id="toc-n8n-workflows" class="nav-link" data-scroll-target="#n8n-workflows">n8n workflows</a></li>
+  </ul></li>
+  <li><a href="#suggested-process" id="toc-suggested-process" class="nav-link" data-scroll-target="#suggested-process">Suggested process</a></li>
+  <li><a href="#project-plan" id="toc-project-plan" class="nav-link" data-scroll-target="#project-plan">Project plan</a></li>
+  <li><a href="#lectures" id="toc-lectures" class="nav-link" data-scroll-target="#lectures">Lectures</a></li>
+  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">Deliverables</a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report">Report</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
+  <li><a href="#oral-exam" id="toc-oral-exam" class="nav-link" data-scroll-target="#oral-exam">Oral exam</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../projects/two-week-project.html">Projects</a></li><li class="breadcrumb-item"><a href="../projects/factory-project.html">Final project</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Final project</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In the final project you will design, build and evaluate your own small software factory: a system where you write a specification, a coding agent builds it, and you stay in control of what gets accepted.</p>
+<p>The purpose of the project is to apply the concepts from the course in a realistic way of working. You are not expected to build a coding agent. You are expected to build the system around one: the workflow that picks up tasks, starts the agent, handles its questions and hands its work back to you for review.</p>
+<p>The factory’s input is a task: a short specification of what to build. The project should result in a working factory. It should not just be a diagram or a demo of a single run. You must run real tasks through it and show what worked and what did not.</p>
+<section id="project-type" class="level2">
+<h2 class="anchored" data-anchor-id="project-type">Project type</h2>
+<p>This is an individual project. You can help each other, but you have to turn in your own project. Projects that are too similar may be a problem at the exam, so make your factory your own.</p>
+</section>
+<section id="scope" class="level2">
+<h2 class="anchored" data-anchor-id="scope">Scope</h2>
+<p>You must build a prototype of a software factory that works on a code repository.</p>
+<p>You use one repository. It holds the factory itself (your n8n workflows and your runner) and, in its own folder, something the factory builds for you, for example a small chess game. All tasks are issues in this repository, so n8n only has to watch one place.</p>
+<p>It is recommended that you also build the factory with the factory. Start by building it with your coding agent in the usual way, for example Claude Code or Codex in VS Code. As parts of the factory start working, let the factory take over its own tasks, e.g.&nbsp;when you start extending or fixing the factory. Keep your n8n workflows as JSON files in the repository: the agent changes the JSON in a pull request, and you import it into n8n by hand after your review. That manual step is part of your quality check.</p>
+<p>Use the coding agent you already have access to (for example Claude Code or Codex CLI). No particular provider is required. You may also run the coding agent on a local model through Ollama, but it might be hard to do.</p>
+</section>
+<section id="how-the-factory-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-the-factory-works">How the factory works</h2>
+<p>Each task is an issue, and its label is its state. This is how a task moves through the factory:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+
+<pre class="mermaid mermaid-js">flowchart TD
+  I["Ideas&lt;br/&gt;you write a rough task"] --&gt;|n8n picks it up| R["Refining&lt;br/&gt;the AI rewrites it into a plain task"]
+  R --&gt; RA["Ready for approval&lt;br/&gt;you read the AI's version"]
+  RA --&gt;|you comment| R
+  RA --&gt;|you approve| AP["Approved&lt;br/&gt;waits for the factory"]
+  AP --&gt;|one at a time| B["Building&lt;br/&gt;the coding agent works on branch issue-N"]
+  B --&gt;|the agent asks| W["Waiting for you&lt;br/&gt;you answer in a comment"]
+  W --&gt;|n8n sees your answer| AP
+  B --&gt;|fails or over 30 min| S["Stuck&lt;br/&gt;you retry or drop"]
+  S --&gt;|retry| AP
+  S --&gt;|drop| D["Done"]
+  B --&gt;|pull request opened| QA["Your QA&lt;br/&gt;you check the pull request"]
+  QA --&gt;|merge or close| D
+  QA --&gt;|send back with a comment| AP
+
+  classDef human fill:#FDE7C8,stroke:#D9822B,color:#1a1a1a
+  classDef ai fill:#E9DDFB,stroke:#7E57C2,color:#1a1a1a
+  classDef n8n fill:#FCE1E8,stroke:#EA4B71,color:#1a1a1a
+  class I,RA,W,S,QA human
+  class R,B ai
+  class AP,D n8n
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Orange: you act. Purple: the AI works. Pink: n8n moves the task on.</p>
+<p>In words:</p>
+<ol type="1">
+<li><strong>Ideas</strong> — you write a rough task as an issue with the label <code>Ideas</code>.</li>
+<li><strong>Refining</strong> — your AI step in n8n rewrites it into a plain task and asks you questions in a comment.</li>
+<li><strong>Ready for approval</strong> — you read the AI’s version. Comment to discuss it, and it goes back to <code>Refining</code>. When you are happy, you move it to <code>Approved</code>.</li>
+<li><strong>Approved</strong> — the task waits until the factory has room. One task is built at a time.</li>
+<li><strong>Building</strong> — the coding agent works on the task in its own branch, <code>issue-N</code>.</li>
+<li><strong>Waiting for you</strong> — the agent has a question instead of guessing. You answer in a comment. n8n sees your answer and moves the task back to <code>Approved</code>.</li>
+<li><strong>Stuck</strong> — the agent failed or ran for more than 30 minutes. Move the task to <code>Approved</code> to retry, or close it to drop it.</li>
+<li><strong>Your QA</strong> — the work is a pull request with a summary of what the agent did. You check it: merge it, close it, or send it back to <code>Approved</code> with a comment. Tests help here: ask the agent to write and run them. Otherwise, try the result yourself before you merge.</li>
+<li><strong>Done</strong> — the pull request is merged or the issue is closed.</li>
+</ol>
+<section id="specification-template" class="level3">
+<h3 class="anchored" data-anchor-id="specification-template">Specification template</h3>
+<p>Your rough task in <code>Ideas</code> can be short. Your AI step rewrites it into a plain task that follows a fixed template, so the coding agent always gets the same information. For example: what to build, why, constraints, and acceptance criteria that can be checked. The template is part of your AI step’s prompt. You design it yourself and explain your choices in the report.</p>
+</section>
+<section id="states" class="level3">
+<h3 class="anchored" data-anchor-id="states">States</h3>
+<p>The states are labels on the issue. Who sets each one:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Label</th>
+<th style="text-align: left;">Set by</th>
+<th style="text-align: left;">Basic A</th>
+<th style="text-align: left;">Basic B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>Ideas</code></td>
+<td style="text-align: left;">you</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Refining</code></td>
+<td style="text-align: left;">n8n</td>
+<td style="text-align: left;">your AI step runs</td>
+<td style="text-align: left;">same</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Ready for approval</code></td>
+<td style="text-align: left;">n8n</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Approved</code></td>
+<td style="text-align: left;"><strong>only you</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Building</code></td>
+<td style="text-align: left;">n8n</td>
+<td style="text-align: left;">you start the coding agent by hand</td>
+<td style="text-align: left;">the runner starts the coding agent</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Waiting for you</code></td>
+<td style="text-align: left;">n8n</td>
+<td style="text-align: left;">not used: you answer the agent in its session</td>
+<td style="text-align: left;">the question is posted on the issue</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Stuck</code></td>
+<td style="text-align: left;">n8n</td>
+<td style="text-align: left;">not used</td>
+<td style="text-align: left;">the agent failed or ran over 30 minutes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Your QA</code></td>
+<td style="text-align: left;">n8n, when it sees the pull request</td>
+<td style="text-align: left;">you or the agent open the pull request</td>
+<td style="text-align: left;">the factory opens the pull request</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Done</code></td>
+<td style="text-align: left;">n8n, when the pull request is merged or the issue closed</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>Only you move a task to <code>Approved</code>. The AI advises, it never approves.</p>
+<p>Labels are the simple choice. A GitHub Project board with a Status field looks nicer, but n8n’s GitHub node cannot change it, so you would need GraphQL calls through an HTTP node.</p>
+</section>
+</section>
+<section id="basic-and-advanced" class="level2">
+<h2 class="anchored" data-anchor-id="basic-and-advanced">Basic and advanced</h2>
+<p>The project has two steps: basic and advanced. Basic has two parts, A and B. Build basic A first, then basic B. Advanced builds on basic.</p>
+<section id="basic-a-manual-factory" class="level3">
+<h3 class="anchored" data-anchor-id="basic-a-manual-factory">Basic A: manual factory</h3>
+<ul>
+<li>the task board is GitHub Issues or a similar issue tracker, with labels as the task states</li>
+<li>an n8n workflow asks the task board for new tasks on a schedule and sets the state of each task</li>
+<li>one AI step in n8n with a prompt you have written yourself: a refinement of the task. The AI rewrites the rough task into a plain task, asks you questions, and moves it from <code>Refining</code> to <code>Ready for approval</code>. It gives advice as a comment. You still decide. It can run on a local Ollama model</li>
+<li>you start the coding agent by hand, with the issue as its input. It works in its own branch</li>
+<li>the agent asks instead of guessing. You answer its questions yourself, in the agent’s session</li>
+<li>the result is a pull request with a summary, and test results if the agent wrote tests</li>
+<li>nothing is merged into <code>main</code> without your review</li>
+</ul>
+</section>
+<section id="basic-b-automated-factory" class="level3">
+<h3 class="anchored" data-anchor-id="basic-b-automated-factory">Basic B: automated factory</h3>
+<ul>
+<li>the factory marks an <code>Approved</code> task as <code>Building</code> and starts the coding agent itself, through a runner: a small program or container that runs the agent without you. You build the runner yourself, from the architecture below</li>
+<li>one task at a time, and only tasks written by you</li>
+<li>the agent’s questions are posted on the issue, and the task moves to <code>Waiting for you</code>. When you answer in a comment, n8n moves the task back to <code>Approved</code>, and the agent starts again with your answer</li>
+<li>the factory opens the pull request</li>
+<li>a task moves to <code>Stuck</code> if the agent fails or runs for more than 30 minutes</li>
+</ul>
+</section>
+<section id="advanced-safe-and-extended" class="level3">
+<h3 class="anchored" data-anchor-id="advanced-safe-and-extended">Advanced: safe and extended</h3>
+<p>The advanced part comes later. It makes the factory safer and extends it, for example with a memory of past tasks in Neo4j and an MCP server.</p>
+</section>
+</section>
+<section id="architecture" class="level2">
+<h2 class="anchored" data-anchor-id="architecture">Architecture</h2>
+<p>The factory has four parts:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+
+<pre class="mermaid mermaid-js">flowchart LR
+  GH[("GitHub&lt;br/&gt;issues, labels,&lt;br/&gt;comments, PRs")]
+  N8N["n8n&lt;br/&gt;orchestrator, AI step"]
+  R["Runner&lt;br/&gt;(you, in basic A)"]
+  AG["Coding agent&lt;br/&gt;Claude Code, Codex, ..."]
+  GH &lt;-- "reads issues,&lt;br/&gt;sets labels, comments" --&gt; N8N
+  N8N &lt;-- "HTTP: task / result" --&gt; R
+  R -- "starts with&lt;br/&gt;the specification" --&gt; AG
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>GitHub</strong> (or a similar service) holds everything the factory knows. An issue is a specification, its label is the state, the comments are questions and answers, and the pull request is the result.</li>
+<li><strong>n8n</strong> is the orchestrator. It asks GitHub for changes on a schedule, runs your AI step, changes labels, writes comments and opens pull requests.</li>
+<li><strong>The runner</strong> (basic B) is a small program, for example in Python, that n8n calls over HTTP. It does only what n8n cannot do: it checks out the repository on a new branch, starts the coding agent with the specification as its prompt, pushes the branch, and reports back: done, question or stuck. It stops the agent after 30 minutes. A run can take many minutes, so the runner answers n8n at once and works in the background, and n8n asks for finished results on a schedule. In basic A you do this part yourself.</li>
+<li><strong>The coding agent</strong> does the work. Tell it to end every run by stating whether it is done, has a question or is stuck.</li>
+</ul>
+<section id="n8n-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="n8n-workflows">n8n workflows</h3>
+<p>Basic A has three n8n workflows: refine the task (<code>Ideas</code> to <code>Ready for approval</code>; it also watches for your comments and moves the task back to <code>Refining</code>, or, in basic B, from <code>Waiting for you</code> to <code>Approved</code>), start a task (<code>Approved</code> to <code>Building</code>), and track pull requests (<code>Your QA</code> and <code>Done</code>). Basic B adds one more: collect the results from the runner. Name your branches after the issue, for example <code>issue-12</code>, so a workflow can link a pull request to its task.</p>
+<p>Two practical points. Let n8n ask GitHub for changes on a schedule: GitHub cannot call n8n on your laptop. And when n8n runs in Docker, it reaches a program on your own machine at <code>host.docker.internal</code>, not <code>localhost</code>.</p>
+</section>
+</section>
+<section id="suggested-process" class="level2">
+<h2 class="anchored" data-anchor-id="suggested-process">Suggested process</h2>
+<p>You should work through the project in roughly this order:</p>
+<ol type="1">
+<li>Create your repository and the labels for the task states.</li>
+<li>Design the factory: states, workflow, your AI step and permissions.</li>
+<li>Build basic A with your coding agent. Tip: let the coding agent build and test your n8n workflows through an n8n MCP server (see week 8).</li>
+<li>Run your first tasks through the factory. If you build the factory with the factory, the next parts of the factory are good first tasks.</li>
+<li>Automate: build the runner and let n8n start the agent (basic B).</li>
+<li>Make the factory safer and extend it (advanced).</li>
+<li>Run tasks that are not about the factory, for example a small chess game.</li>
+<li>Evaluate the factory: where it worked, where it stopped, and where you had to step in.</li>
+<li>Document the project.</li>
+</ol>
+</section>
+<section id="project-plan" class="level2">
+<h2 class="anchored" data-anchor-id="project-plan">Project plan</h2>
+<p>The project starts on 18 November and is handed in in mid-December. The exact hand-in date will be announced.</p>
+<ol type="1">
+<li>Week 1: design the architecture and build basic A</li>
+<li>Week 2: run tasks through the factory and build basic B</li>
+<li>Week 3: advanced, and tasks that are not about the factory</li>
+<li>Week 4: evaluate, write the report and hand in the project</li>
+</ol>
+</section>
+<section id="lectures" class="level2">
+<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<p>The lectures during the project period are planned as follows:</p>
+<ol type="1">
+<li>18 November: start of project, walkthrough of project, architecture design. Set up your repository and start the n8n orchestration</li>
+<li>25 November: guest session with Andreas Elmertoft, then the advanced part of the project and project work</li>
+<li>2 December: supervision</li>
+<li>9 and 16 December: online supervision</li>
+</ol>
+</section>
+<section id="deliverables" class="level2">
+<h2 class="anchored" data-anchor-id="deliverables">Deliverables</h2>
+<p>You must submit:</p>
+<ul>
+<li>a working factory, including your n8n workflows and your runner</li>
+<li>an architecture diagram</li>
+<li>your specification template</li>
+<li>the prompt for your AI step in n8n</li>
+<li>at least 5 tasks that you have run through the factory, with their issues and pull requests</li>
+<li>a report of max 5 pages</li>
+</ul>
+<p>The project is handed in through WISEflow: your report and a link to your repository. The repository must be public, so the examiners can read it. Zip files are not accepted. You must turn in your own project.</p>
+</section>
+<section id="report" class="level2">
+<h2 class="anchored" data-anchor-id="report">Report</h2>
+<p>The report must include:</p>
+<ul>
+<li>your architecture and the choice of coding agent and model — including a reflection on capabilities, cost and limits</li>
+<li>your specification template and an explanation of your design choices</li>
+<li>the prompt for your AI step in n8n, an explanation of your design choices, and an example of its output</li>
+<li>implementation overview</li>
+<li>an evaluation of the factory: where it worked, where it stopped, and where you had to step in</li>
+<li>your permission and safety choices: what the agent may and may not do without you</li>
+<li>reflection and future work</li>
+</ul>
+<p>Maximum length: 5 pages.</p>
+<p>A suggested structure is:</p>
+<ul>
+<li>1 page on architecture and choice of coding agent</li>
+<li>1 page on your specification template and your AI step</li>
+<li>1 page on implementation</li>
+<li>1.5 pages on evaluation of the factory</li>
+<li>0.5 page of reflection and future work</li>
+</ul>
+</section>
+<section id="evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
+<p>The project will be evaluated based on:</p>
+<ul>
+<li>quality of the architecture and its justification</li>
+<li>meaningful use of n8n</li>
+<li>quality of your AI step in n8n and its prompt</li>
+<li>a working loop, from task to reviewed pull request</li>
+<li>quality of the evaluation of your factory</li>
+<li>how far you got (basic or advanced) and how well it works</li>
+<li>quality of the demonstrated factory in the oral exam</li>
+<li>reflection on limitations and security</li>
+<li>overall quality of the prototype and report</li>
+</ul>
+</section>
+<section id="oral-exam" class="level2">
+<h2 class="anchored" data-anchor-id="oral-exam">Oral exam</h2>
+<p>The project will be evaluated in the oral exam.</p>
+<p>At the oral exam you must present and demonstrate your factory. Here you should show your architecture, your n8n workflows, your AI step and its prompt, a task moving through the factory, and how you stay in control of what the agent does.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

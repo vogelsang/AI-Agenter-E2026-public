@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="270" viewBox="0 0 1200 270" role="img" aria-labelledby="title desc">
+<title id="title">The coding agent loop</title>
+<desc id="desc">A task leads to investigate, plan, change and check. If the check fails the agent goes back to investigate; if it passes it reports.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f8a875"/></marker></defs>
+<g font-family="Arial, sans-serif" fill="#eee">
+<g fill="#363636" stroke="#ddd" stroke-width="2">
+<rect x="20" y="90" width="160" height="80" rx="8"/><rect x="220" y="90" width="160" height="80" rx="8"/>
+<rect x="420" y="90" width="160" height="80" rx="8"/><rect x="620" y="90" width="160" height="80" rx="8"/>
+<rect x="820" y="90" width="160" height="80" rx="8"/><rect x="1020" y="90" width="160" height="80" rx="8"/>
+</g>
+<g text-anchor="middle" font-size="24">
+<text x="100" y="138">Task</text><text x="300" y="138">Investigate</text><text x="500" y="138">Plan</text>
+<text x="700" y="138">Change</text><text x="900" y="138">Check</text><text x="1100" y="138">Report</text>
+</g>
+<g fill="none" stroke="#f8a875" stroke-width="3" marker-end="url(#arrow)">
+<path d="M184 130H213"/><path d="M384 130H413"/><path d="M584 130H613"/><path d="M784 130H813"/><path d="M984 130H1013"/>
+<path d="M900 174V225H300V181"/>
+</g>
+<g text-anchor="middle" font-size="19" fill="#f8a875">
+<text x="1000" y="75">passes</text><text x="600" y="255">fails</text>
+</g>
+</g></svg>
