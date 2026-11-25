@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+<title id="title">My factory: task states</title>
+<desc id="desc">Ideas move to Refining when you comment; the AI rewrites them into Ready for approval, and further comments send them back to Refining. You move a task to Approved; when there is budget it moves to Building. From Building the AI can ask a question (Waiting for you, back to Building when you answer), hit a problem (Stuck, then retry to Approved or drop to Done), or open a pull request (Your QA, then merge or close to Done).</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f8a875"/></marker></defs>
+<g font-family="Arial, sans-serif" fill="#eee">
+<g fill="#363636" stroke-width="3">
+<rect x="20" y="60" width="180" height="80" rx="8" stroke="#8b949e"/>
+<rect x="260" y="60" width="180" height="80" rx="8" stroke="#a371f7"/>
+<rect x="500" y="60" width="240" height="80" rx="8" stroke="#4493f8"/>
+<rect x="790" y="60" width="170" height="80" rx="8" stroke="#4493f8"/>
+<rect x="500" y="300" width="240" height="80" rx="8" stroke="#f85149"/>
+<rect x="790" y="300" width="170" height="80" rx="8" stroke="#4493f8"/>
+<rect x="1040" y="300" width="150" height="80" rx="8" stroke="#db6d28"/>
+<rect x="500" y="520" width="240" height="80" rx="8" stroke="#8b949e"/>
+<rect x="790" y="520" width="170" height="80" rx="8" stroke="#db6d28"/>
+</g>
+<g text-anchor="middle" font-size="22">
+<text x="110" y="108">Ideas</text>
+<text x="350" y="108">Refining</text>
+<text x="620" y="108">Ready for approval</text>
+<text x="875" y="108">Approved</text>
+<text x="620" y="348">Stuck</text>
+<text x="875" y="348">Building</text>
+<text x="1115" y="334">Waiting</text><text x="1115" y="362">for you</text>
+<text x="620" y="568">Done</text>
+<text x="875" y="568">Your QA</text>
+</g>
+<g fill="none" stroke="#f8a875" stroke-width="3" marker-end="url(#arrow)">
+<path d="M204 100H253"/>
+<path d="M444 100H493"/>
+<path d="M560 144C540 205 420 205 400 147"/>
+<path d="M744 100H783"/>
+<path d="M875 144V293"/>
+<path d="M964 325H1033"/>
+<path d="M1036 355H967"/>
+<path d="M786 340H747"/>
+<path d="M700 296L815 148"/>
+<path d="M620 384V513"/>
+<path d="M875 384V513"/>
+<path d="M786 560H747"/>
+</g>
+<g font-size="18" fill="#f8a875">
+<g text-anchor="middle">
+<text x="228" y="45">comment</text>
+<text x="468" y="45">AI rewrites</text>
+<text x="765" y="45">you approve</text>
+<text x="480" y="218">comment</text>
+<text x="1000" y="312">question</text>
+<text x="1000" y="394">answer</text>
+<text x="766" y="410">problem</text>
+<text x="766" y="628">merge / close</text>
+</g>
+<text x="885" y="225">budget</text>
+<text x="745" y="225" text-anchor="end">retry</text>
+<text x="610" y="455" text-anchor="end">drop</text>
+<text x="885" y="455">pull request</text>
+</g>
+<g font-size="18">
+<circle cx="30" cy="470" r="8" fill="none" stroke="#db6d28" stroke-width="3"/><text x="46" y="476">Your turn</text>
+<circle cx="30" cy="505" r="8" fill="none" stroke="#4493f8" stroke-width="3"/><text x="46" y="511">In the pipeline</text>
+<circle cx="30" cy="540" r="8" fill="none" stroke="#a371f7" stroke-width="3"/><text x="46" y="546">AI refining the task</text>
+<circle cx="30" cy="575" r="8" fill="none" stroke="#f85149" stroke-width="3"/><text x="46" y="581">Problem</text>
+</g>
+</g></svg>
